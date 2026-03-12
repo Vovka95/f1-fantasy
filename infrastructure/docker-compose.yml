@@ -1,0 +1,32 @@
+services:
+    f1_fantasy_web_client:
+        container_name: f1_fantasy_web_client
+        build:
+            context: ../
+            dockerfile: ./infrastructure/docker/webClient.Dockerfile
+            target: development
+        env_file:
+            - .env
+        ports:
+            - '${FRONTEND_PORT}:${FRONTEND_PORT}'
+        environment:
+            VITE_API_URL: http://localhost:${PORT}
+        working_dir: /app
+        volumes:
+            - ../webClient:/app/webClient
+        depends_on:
+            - f1_fantasy_web_api
+
+    f1_fantasy_web_api:
+        container_name: f1_fantasy_web_api
+        build:
+            context: ../
+            dockerfile: ./infrastructure/docker/webApi.Dockerfile
+            target: development
+        env_file:
+            - .env
+        ports:
+            - '${PORT}:${PORT}'
+        working_dir: /app
+        volumes:
+            - ../webApi:/app/webApi
