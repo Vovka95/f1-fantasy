@@ -6,7 +6,7 @@ import { qk } from '@/app/config/queryKey';
 
 export const useMe = (userId: string) => {
     return useQuery({
-        queryKey: qk.me(userId),
+        queryKey: qk.f1.me(userId),
         // queryFn: () => f1FantasyApi.getMe(userId),
         queryFn: () => f1FantasyApi.getMe(),
         enabled: !!userId,

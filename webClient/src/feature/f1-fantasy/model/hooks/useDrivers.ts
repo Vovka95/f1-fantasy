@@ -6,7 +6,7 @@ import { qk } from '@/app/config/queryKey';
 
 export const useDrivers = (enabled: boolean = true) => {
     return useQuery({
-        queryKey: qk.getDrivers(),
+        queryKey: qk.f1.drivers(),
         queryFn: f1FantasyApi.getDrivers,
         retry: false,
         enabled,
