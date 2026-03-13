@@ -30,15 +30,27 @@ export class F1SessionService {
         let session = await this.repo.findOne({ where: { id: 1 } });
 
         if (!session) {
-            session = this.repo.create({
+            const session = this.repo.create({
                 id: 1,
                 cookieHeader,
             });
-        } else {
-            session.cookieHeader = cookieHeader;
+
+            return this.repo.save(session);
         }
 
-        return this.repo.save(session);
+        await this.repo.update(
+            { id: 1 },
+            {
+                cookieHeader,
+                isValid: true,
+                lastValidatedAt: null,
+                expiredAt: null,
+                lastError: null,
+                updatedAt: new Date(),
+            },
+        );
+
+        return session;
     }
 
     async getSession(): Promise<F1Session> {
@@ -67,6 +79,7 @@ export class F1SessionService {
             lastValidatedAt: new Date(),
             expiredAt: null,
             lastError: null,
+            updatedAt: new Date(),
         });
     }
 
@@ -75,6 +88,7 @@ export class F1SessionService {
             isValid: false,
             expiredAt: new Date(),
             lastError: errorMessage ?? 'F1 session expired',
+            updatedAt: new Date(),
         });
     }
 

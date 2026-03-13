@@ -15,7 +15,6 @@ export const DriversPage = () => {
 
     return (
         <div>
-            <h3>Auth</h3>
             <p>
                 {me.isLoading || drivers.isLoading
                     ? 'Loading...'

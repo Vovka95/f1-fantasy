@@ -9,7 +9,9 @@ export const useConnectF1AccauntMutation = () => {
 
     return useMutation({
         mutationFn: f1SessionApi.connectF1Accaunt,
-        onSuccess: async () => {
+        onSuccess: async (data) => {
+            console.log('connect', data);
+
             await queryClient.invalidateQueries({
                 queryKey: qk.sessionStatus(),
             });

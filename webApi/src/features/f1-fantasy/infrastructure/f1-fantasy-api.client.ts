@@ -116,7 +116,7 @@ export class F1FantasyApiClient {
                 axiosError.response?.status === 403
             ) {
                 await this.f1SessionService.markExpired(
-                    `F1 authorization failed with status ${axiosError.response.status}`,
+                    `F1 authorization failed with status ${axiosError.response.status}, on url request: ${url}`,
                 );
 
                 throw new UnauthorizedException(

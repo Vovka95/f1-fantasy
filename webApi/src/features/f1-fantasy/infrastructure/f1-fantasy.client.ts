@@ -38,6 +38,6 @@ export class F1FantasyClient {
         // team
         const url = `https://fantasy.formula1.com/services/user/gameplay/${userId}/getteam/1/1/2/1`;
 
-        return this.f1FantasyApiClient.getPublic(url);
+        return this.f1FantasyApiClient.getPrivate(url);
     }
 }

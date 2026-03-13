@@ -1,13 +1,13 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-import { RootLayout } from '@/widgets/root-layout';
+import { AppLayout } from '@/widgets/app-layout';
 import { HealthPage } from '@/pages/health';
 import { DriversPage } from '@/pages/drivers';
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <RootLayout />,
+        element: <AppLayout />,
         children: [
             {
                 index: true,
