@@ -1,5 +1,6 @@
 import { ConnectF1SessionDialog } from '@/feature/f1-session/ui/connect-f1-session-dialog';
 import { ConnectF1SessionStatus } from '@/feature/f1-session/ui/connect-f1-session-status';
+import { Navigation } from './Navigation';
 
 export const TopBar = () => {
     return (
@@ -8,7 +9,7 @@ export const TopBar = () => {
                 <div className="flex items-center gap-6">
                     <div className="text-lg font-semibold">F1 Fantasy</div>
 
-                    <nav className="hidden items-center gap-4 md:flex"></nav>
+                    <Navigation />
                 </div>
 
                 <div className="flex items-center gap-3">

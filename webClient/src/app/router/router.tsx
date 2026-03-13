@@ -1,8 +1,10 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { AppLayout } from '@/widgets/app-layout';
+
 import { HealthPage } from '@/pages/health';
-import { DriversPage } from '@/pages/drivers';
+
+import { DriversPage, MePage } from '@/pages/f1-fantasy';
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +18,10 @@ export const router = createBrowserRouter([
             {
                 path: 'drivers',
                 element: <DriversPage />,
+            },
+            {
+                path: 'me',
+                element: <MePage />,
             },
             {
                 path: 'health',
