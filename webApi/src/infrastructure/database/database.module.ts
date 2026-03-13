@@ -1,0 +1,21 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+import typeormConfig from '../config/typeorm.config';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+
+@Module({
+    imports: [
+        ConfigModule.forRoot({
+            load: [typeormConfig],
+        }),
+        TypeOrmModule.forRootAsync({
+            inject: [ConfigService],
+            // eslint-disable-next-line @typescript-eslint/require-await
+            useFactory: async (configService: ConfigService) =>
+                configService.getOrThrow<TypeOrmModuleOptions>('typeormConfig'),
+        }),
+    ],
+    exports: [TypeOrmModule, ConfigModule],
+})
+export class DatabaseModule {}

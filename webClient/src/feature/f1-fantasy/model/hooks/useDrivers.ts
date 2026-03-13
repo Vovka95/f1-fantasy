@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { f1FantasyApi } from '../../api';
+
 import { qk } from '@/app/config/queryKey';
 
-export const useHealthCheck = (enabled: boolean = true) => {
+export const useDrivers = (enabled: boolean = true) => {
     return useQuery({
-        queryKey: qk.health(),
-        queryFn: f1FantasyApi.healthCheck,
+        queryKey: qk.getDrivers(),
+        queryFn: f1FantasyApi.getDrivers,
         retry: false,
         enabled,
         staleTime: 60_000,

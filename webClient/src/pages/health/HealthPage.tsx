@@ -1,6 +1,6 @@
-import { useHealthCheck } from '@/feature/f1-fantasy/model';
+import { useHealthCheck } from '@/feature/health/model';
 
-export const TestPage = () => {
+export const HealthPage = () => {
     const healthQuery = useHealthCheck();
 
     return (

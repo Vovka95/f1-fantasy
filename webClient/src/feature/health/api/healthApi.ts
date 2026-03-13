@@ -1,8 +1,8 @@
 import { apiClient } from '@/shared/api/apiClient';
 
-export const f1FantasyApi = {
+export const healthApi = {
     healthCheck: async () => {
-        const { data } = await apiClient.get<string>('');
+        const { data } = await apiClient.get<string>('health');
         return data;
     },
 };

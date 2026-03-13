@@ -1,1 +1,1 @@
-export * from './f1FantasyApi';
+export * from './f1-fantasyApi';
