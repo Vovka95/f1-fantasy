@@ -1,1 +1,1 @@
-export { DriversPage } from './DriversPage';
+export { DriversPage } from './ui/DriversPage';
