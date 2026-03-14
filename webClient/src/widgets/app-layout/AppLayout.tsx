@@ -8,11 +8,11 @@ export const AppLayout = () => {
     const { isLoading } = useF1SessionStatusQuery();
 
     return (
-        <div className="h-dvh overflow-hidden bg-bg text-fg">
+        <div className="flex h-dvh flex-col bg-bg text-fg">
             <TopBar />
 
-            <div className="mx-auto flex w-full max-w-7xl gap-6 px-4 py-6">
-                <main className="min-w-0 flex-1">
+            <div className="flex w-full gap-6 px-4 py-6 overflow-hidden">
+                <main className="min-h-0 min-w-0 flex-1 overflow-hidden">
                     {isLoading ? <FullPageLoader /> : <Outlet />}
                 </main>
             </div>

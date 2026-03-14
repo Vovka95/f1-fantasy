@@ -2,8 +2,8 @@ import { cn } from '@/shared/lib/cn';
 import { NavLink } from 'react-router-dom';
 
 const items = [
-    { label: 'Me', to: '/me' },
     { label: 'Drivers', to: '/drivers' },
+    { label: 'Constructors', to: '/constructors' },
 ];
 
 export const Navigation = () => {
