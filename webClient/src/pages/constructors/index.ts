@@ -1,1 +1,1 @@
-export { ConstructorsPage } from './ConstructorsPage';
+export { ConstructorsPage } from './ui/ConstructorsPage';
