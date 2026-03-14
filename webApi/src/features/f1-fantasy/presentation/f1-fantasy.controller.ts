@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { F1FantasyService } from '../application/f1-fantasy.service';
 
 @Controller('f1/fantasy')
@@ -8,22 +8,27 @@ export class F1FantasyController {
     @Post('test')
     async test() {
         await this.f1FantasyService.getMe({
-            seasonId: 1,
+            raceWeek: 1,
             userId: 'd025a628-18c6-11f1-8584-91067885f997',
         });
 
         return { ok: true };
     }
 
-    @Get('drivers')
-    async getDrivers() {
-        return this.f1FantasyService.getDrivers({ seasonId: 2, lang: 'en' });
+    @Get('players')
+    async getF1Players(@Query('raceWeek') raceWeek: number) {
+        return this.f1FantasyService.getPlayers({ raceWeek, lang: 'en' });
+    }
+
+    @Get('player-stats')
+    async getF1PlayerStats(@Query('playerId') playerId: string) {
+        return this.f1FantasyService.getPlayerStats(playerId);
     }
 
     @Get('me')
     async getMe() {
         return this.f1FantasyService.getMe({
-            seasonId: 1,
+            raceWeek: 2,
             userId: 'd025a628-18c6-11f1-8584-91067885f997',
         });
     }

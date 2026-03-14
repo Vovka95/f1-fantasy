@@ -11,8 +11,12 @@ import {
 export class F1FantasyService {
     constructor(private readonly f1FantasyClient: F1FantasyClient) {}
 
-    async getDrivers(input: F1FantasyDriversInput) {
-        return this.f1FantasyClient.getDriversFeed(input);
+    async getPlayers(input: F1FantasyDriversInput) {
+        return this.f1FantasyClient.getPlayersFeed(input);
+    }
+
+    async getPlayerStats(playerId: string) {
+        return this.f1FantasyClient.getPlayerStats(playerId);
     }
 
     async getMe(input: F1FantasyUserGameDaysInput) {

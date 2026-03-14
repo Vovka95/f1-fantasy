@@ -12,31 +12,24 @@ export class F1FantasyClient {
 
     constructor(private readonly f1FantasyApiClient: F1FantasyApiClient) {}
 
-    async getDriversFeed(input: F1FantasyDriversInput) {
-        const { seasonId, lang } = input;
+    async getPlayersFeed(input: F1FantasyDriversInput) {
+        const { raceWeek, lang } = input;
 
-        const url = `${this.fantasyBaseUrl}/feeds/drivers/${seasonId}_${lang}.json`;
+        const url = `${this.fantasyBaseUrl}/feeds/drivers/${raceWeek}_${lang}.json`;
 
-        return this.f1FantasyApiClient.getPublic(url);
+        return this.f1FantasyApiClient.getPrivate(url);
+    }
+
+    async getPlayerStats(playerId: string) {
+        const url = `${this.fantasyBaseUrl}/feeds/popup/playerstats_${playerId}.json`;
+
+        return this.f1FantasyApiClient.getPrivate(url);
     }
 
     async getUserGameDays(input: F1FantasyUserGameDaysInput) {
-        const { userId, seasonId } = input;
+        const { userId, raceWeek } = input;
 
-        // const url =
-        //     `${this.fantasyBaseUrl}/services/user/gameplay/${userId}` +
-        //     `/getusergamedaysv1/${seasonId}`;
-
-        // const leagueId = 'bbcc318a-11a3-11f1-ab76-5d5c886f6f39-0-205467947';
-        // const url = `https://fantasy.formula1.com/services/user/opponentteam/opponentgamedayget/1/${leagueId}/2`;
-
-        // user leagues
-        // const url = `https://fantasy.formula1.com/services/user/league/${userId}/leaguelandingv1`;
-
-        // const url = `${this.fantasyBaseUrl}/services/user/league/${userId}/leaguelandingv1`;
-
-        // team
-        const url = `https://fantasy.formula1.com/services/user/gameplay/${userId}/getteam/1/1/2/1`;
+        const url = `https://fantasy.formula1.com/services/user/gameplay/${userId}/getteam/1/1/${raceWeek}/1`;
 
         return this.f1FantasyApiClient.getPrivate(url);
     }
