@@ -4,4 +4,5 @@ export * from './Dialog';
 export * from './Spinner';
 export * from './Form';
 export * from './Input';
+export * from './Select';
 export * from './FullPageLoader';
