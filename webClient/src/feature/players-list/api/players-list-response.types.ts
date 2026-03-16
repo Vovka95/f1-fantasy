@@ -1,17 +1,4 @@
-type F1TimestampSet = {
-    UTCTime: string;
-    ISTTime: string;
-    CESTTime: string;
-};
-
-type F1Meta = {
-    Message: string;
-    RetVal: number;
-    Success: boolean;
-    Timestamp: F1TimestampSet;
-    StatusCode: number;
-    Maintenance: string;
-};
+import type { F1Meta, F1TimestampSet } from '@/shared/model';
 
 type SessionWisePoint = {
     sessionnumber: number;
