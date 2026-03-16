@@ -11,6 +11,7 @@ export const Navigation = () => {
         <nav className="flex items-center gap-2">
             {items.map((item) => (
                 <NavLink
+                    key={item.to}
                     to={item.to}
                     className={({ isActive }) =>
                         cn(
