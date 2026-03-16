@@ -2,10 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { F1FantasyClient } from '../infrastructure/f1-fantasy.client';
 
-import {
-    F1FantasyDriversInput,
-    F1FantasyUserGameDaysInput,
-} from '../domain/types';
+import { F1FantasyDriversInput, F1FantasyUserTeamInput } from '../domain/types';
 
 @Injectable()
 export class F1FantasyService {
@@ -19,7 +16,11 @@ export class F1FantasyService {
         return this.f1FantasyClient.getPlayerStats(playerId);
     }
 
-    async getMe(input: F1FantasyUserGameDaysInput) {
+    async getFantasyTeam(input: F1FantasyUserTeamInput) {
+        return this.f1FantasyClient.getFantasyTeam(input);
+    }
+
+    async getMe(input: F1FantasyUserTeamInput) {
         return this.f1FantasyClient.getUserGameDays(input);
     }
 }

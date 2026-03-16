@@ -6,5 +6,7 @@ export const qk = {
         me: (userId: string) => [...qk.f1.all, , 'me', userId] as const,
         playersList: (raceWeek: number) =>
             [...qk.f1.all, , 'players', raceWeek] as const,
+        fantasyTeam: (userId: string, raceWeek: number) =>
+            [...qk.f1.all, , 'fantasy-team', userId, raceWeek] as const,
     },
 };

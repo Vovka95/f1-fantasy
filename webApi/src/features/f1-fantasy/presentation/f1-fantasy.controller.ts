@@ -25,6 +25,17 @@ export class F1FantasyController {
         return this.f1FantasyService.getPlayerStats(playerId);
     }
 
+    @Get('fantasy-team')
+    async getFantasyTeam(
+        @Query('userId') userId: string,
+        @Query('raceWeek') raceWeek: number,
+    ) {
+        return this.f1FantasyService.getFantasyTeam({
+            userId,
+            raceWeek,
+        });
+    }
+
     @Get('me')
     async getMe() {
         return this.f1FantasyService.getMe({

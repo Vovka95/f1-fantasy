@@ -1,4 +1,4 @@
-export type F1FantasyUserGameDaysInput = {
+export type F1FantasyUserTeamInput = {
     userId: string;
     raceWeek: number;
 };
