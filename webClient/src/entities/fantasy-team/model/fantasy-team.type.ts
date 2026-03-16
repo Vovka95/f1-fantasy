@@ -1,3 +1,3 @@
-import type { FantasyUserTeam } from '@/feature/fantasy-team/api/fantasy-team-response.type';
+import type { FantasyUserTeam } from '@/entities/fantasy-team/api/fantasy-team-response.type';
 
 export type FantasyTeam = FantasyUserTeam;
