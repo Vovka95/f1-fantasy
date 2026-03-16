@@ -4,7 +4,7 @@ import { qk } from '@/app/config/queryKey';
 import { apiClient } from '@/shared/api/apiClient';
 
 import type { PlayersListResponse } from './players-list-response.types';
-import { mapPlayersList } from '../model/players-list.mapper';
+import { mapPlayers } from '../model/player.maper';
 
 const getPlayersList = async (raceWeek: number) => {
     const { data } = await apiClient.get<PlayersListResponse>(
@@ -15,17 +15,15 @@ const getPlayersList = async (raceWeek: number) => {
     return data;
 };
 
-type UsePlayersListQueryParams = {
+type UsePlayersQueryParams = {
     raceWeek: number;
 };
 
-export const usePlayersListQuery = ({
-    raceWeek,
-}: UsePlayersListQueryParams) => {
+export const usePlayersQuery = ({ raceWeek }: UsePlayersQueryParams) => {
     return useQuery({
         queryKey: qk.f1.playersList(raceWeek),
         queryFn: () => getPlayersList(raceWeek),
-        select: (data) => mapPlayersList(data.Data.Value),
+        select: (data) => mapPlayers(data.Data.Value),
         retry: false,
         enabled: Number.isFinite(raceWeek),
         staleTime: 60_000,
