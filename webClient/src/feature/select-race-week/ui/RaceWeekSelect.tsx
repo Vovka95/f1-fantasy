@@ -12,11 +12,13 @@ const raceWeekOptions = [
 
 export const RaceWeekSelect = ({ value, onChange }: RaveWeekSelect) => {
     return (
-        <Select
-            value={String(value)}
-            onValueChange={(nextValue) => onChange(Number(nextValue))}
-            options={raceWeekOptions}
-            placeholder="Choose race week"
-        />
+        <div className="w-auto">
+            <Select
+                value={String(value)}
+                onValueChange={(nextValue) => onChange(Number(nextValue))}
+                options={raceWeekOptions}
+                placeholder="Choose race week"
+            />
+        </div>
     );
 };

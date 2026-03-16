@@ -3,8 +3,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { AppLayout } from '@/widgets/app-layout';
 
 import { HealthPage } from '@/pages/health';
-import { DriversPage } from '@/pages/drivers';
-import { ConstructorsPage } from '@/pages/constructors';
+import { StatisticsPage } from '@/pages/statistics';
 
 export const router = createBrowserRouter([
     {
@@ -13,16 +12,11 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Navigate to="drivers" replace />,
+                element: <Navigate to="statistics" replace />,
             },
             {
-                path: 'drivers',
-                element: <DriversPage />,
-            },
-
-            {
-                path: 'constructors',
-                element: <ConstructorsPage />,
+                path: 'statistics',
+                element: <StatisticsPage />,
             },
             {
                 path: 'health',

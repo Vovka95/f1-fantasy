@@ -1,7 +1,6 @@
 import { type PropsWithChildren } from 'react';
 
-import { Button } from '@/shared/ui';
-import { Dialog } from '@/shared/ui/Dialog';
+import { Button, Dialog } from '@/shared/ui';
 
 import { ConnectF1SessionForm } from './connect-f1-session-form';
 import { useF1ConnectDialogStore } from '@/shared/store/f1-connect-dialog';
