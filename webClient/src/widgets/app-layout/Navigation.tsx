@@ -1,7 +1,10 @@
 import { cn } from '@/shared/lib/cn';
 import { NavLink } from 'react-router-dom';
 
-const items = [{ label: 'Statistics', to: '/statistics' }];
+const items = [
+    { label: 'Statistics', to: '/statistics' },
+    { label: 'Build team', to: '/build-team' },
+];
 
 export const Navigation = () => {
     return (
