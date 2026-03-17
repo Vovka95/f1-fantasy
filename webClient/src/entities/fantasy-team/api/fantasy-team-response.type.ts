@@ -20,8 +20,8 @@ export type FantasyTeamInfo = {
 };
 
 export type FantasyUserTeam = {
-    gdrank: number | null;
-    ovrank: number | null;
+    gdrank: number;
+    ovrank: number;
 
     teamno: number;
     teamname: string;
@@ -29,8 +29,8 @@ export type FantasyUserTeam = {
     teambal: number;
     teamval: number;
 
-    gdpoints: number | null;
-    ovpoints: number | null;
+    gdpoints: number;
+    ovpoints: number;
 
     matchday: number;
 

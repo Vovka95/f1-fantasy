@@ -1,6 +1,11 @@
 import type { PlayerResponse } from '../api/players-list-response.types';
 import type { Player, PlayerPreview } from './player.type';
 
+import {
+    getConstructorImageRightUrl,
+    getDriverFrontImageUrl,
+} from './player.assets';
+
 export const mapPlayer = (asset: PlayerResponse): Player => {
     return {
         id: asset.PlayerId,
@@ -16,11 +21,19 @@ export const mapPlayer = (asset: PlayerResponse): Player => {
 };
 
 const mapPlayerToPreview = (asset: PlayerResponse): PlayerPreview => {
+    const imageUrl =
+        asset.PositionName === 'DRIVER'
+            ? getDriverFrontImageUrl(asset)
+            : getConstructorImageRightUrl(asset);
+
     return {
         id: asset.PlayerId,
-        name: asset.FUllName || `${asset.FirstName} ${asset.LastName}`,
+        name: asset.DisplayName,
+
         shortName: asset.DisplayName,
-        imageUrl: null,
+
+        imageUrl,
+
         teamName: asset.TeamName || '—',
         positionName: asset.PositionName as 'DRIVER' | 'CONSTRUCTOR',
         value: Number(asset.Value),

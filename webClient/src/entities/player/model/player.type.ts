@@ -21,7 +21,7 @@ export type PlayerPreview = {
     positionName: PlayerPosition;
     value: number;
     valueChange: number;
-    overallPoints?: number;
+    overallPoints: number;
     gamedayPoints?: number;
     selectedPercentage?: number;
     isActive?: boolean;
