@@ -7,3 +7,4 @@ export * from './Input';
 export * from './Select';
 export * from './FullPageLoader';
 export * from './SegmentedControl';
+export * from './Divider';
