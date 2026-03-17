@@ -27,7 +27,7 @@ export const PlayerPreviewCard = ({
             className={cn(
                 'group flex w-full max-w-40 flex-col overflow-hidden rounded-xl text-left transition',
                 isClickable &&
-                    'cursor-pointer hover:border-zinc-700 hover:bg-zinc-850 focus:outline-none focus:ring-2 focus:ring-red-500/60',
+                    'cursor-pointer hover:border-zinc-700 hover:bg-zinc-850 focus:outline-none',
                 !isClickable && 'cursor-default',
                 info.iscaptain && 'border border-black/70',
                 className,
