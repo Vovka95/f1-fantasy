@@ -167,7 +167,7 @@ const updatePlayers = (
         (d) => d.preview.id === playerId,
     );
 
-    if (!isConstructor) {
+    if (isConstructor) {
         return state;
     }
 

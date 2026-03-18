@@ -22,8 +22,8 @@ export type PlayerPreview = {
     value: number;
     valueChange: number;
     overallPoints: number;
-    gamedayPoints?: number;
-    selectedPercentage?: number;
-    isActive?: boolean;
-    status?: string;
+    gamedayPoints: number;
+    selectedPercentage: number;
+    isActive: boolean;
+    status: string;
 };

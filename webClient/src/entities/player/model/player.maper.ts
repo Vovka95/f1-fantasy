@@ -34,7 +34,7 @@ const mapPlayerToPreview = (asset: PlayerResponse): PlayerPreview => {
 
         imageUrl,
 
-        teamName: asset.TeamName || '—',
+        teamName: asset.TeamName || asset.DisplayName,
         positionName: asset.PositionName as 'DRIVER' | 'CONSTRUCTOR',
         value: Number(asset.Value),
         valueChange: Number(asset.new_value) - Number(asset.old_Value),

@@ -26,10 +26,11 @@ export const PlayerPreviewCard = ({
             disabled={!isClickable}
             className={cn(
                 'group flex w-full max-w-40 flex-col overflow-hidden rounded-xl text-left transition',
+                'border border-transparent',
                 isClickable &&
-                    'cursor-pointer hover:border-zinc-700 hover:bg-zinc-850 focus:outline-none',
+                    'cursor-pointer hover:border-zinc-200 hover:bg-zinc-850 focus:outline-none',
                 !isClickable && 'cursor-default',
-                info.iscaptain && 'border border-black/70',
+                info.iscaptain && 'border border-zinc-800',
                 className,
             )}
         >
