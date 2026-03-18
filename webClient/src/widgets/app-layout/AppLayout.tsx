@@ -11,7 +11,7 @@ export const AppLayout = () => {
         <div className="flex h-dvh flex-col bg-bg text-fg">
             <TopBar />
 
-            <div className="flex w-full gap-6 px-4 py-6 overflow-hidden">
+            <div className="flex w-full gap-6 p-4  overflow-hidden">
                 <main className="min-h-0 min-w-0 flex-1 overflow-hidden">
                     {isLoading ? <FullPageLoader /> : <Outlet />}
                 </main>

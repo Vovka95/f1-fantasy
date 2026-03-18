@@ -8,8 +8,8 @@ export const Divider = ({
     className,
 }: DividerProps) => {
     if (orientation === 'vertical') {
-        return <div className={`w-px h-full bg-zinc-800 ${className}`} />;
+        return <div className={`w-px h-full bg-border ${className}`} />;
     }
 
-    return <div className={`h-px w-full bg-zinc-800 ${className}`} />;
+    return <div className={`h-px w-full bg-border ${className}`} />;
 };
