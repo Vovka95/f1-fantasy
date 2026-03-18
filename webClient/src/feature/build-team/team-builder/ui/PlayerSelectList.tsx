@@ -18,6 +18,7 @@ import { Button } from '@/shared/ui';
 type PlayerSelectListProps = {
     players: PlayerPreview[];
     onAddPlayer?: (player: PlayerPreview) => void;
+    selectedPlayerIds: string[];
 };
 
 export const columns: ColumnDef<PlayerPreview>[] = [
@@ -38,6 +39,7 @@ export const columns: ColumnDef<PlayerPreview>[] = [
 export const PlayerSelectList = ({
     players,
     onAddPlayer,
+    selectedPlayerIds,
 }: PlayerSelectListProps) => {
     const [sorting, setSorting] = useState<SortingState>([
         { id: 'overallPoints', desc: true },
@@ -98,6 +100,7 @@ export const PlayerSelectList = ({
                         <PlayerSelectFiled
                             player={row.original}
                             onAddPlayer={onAddPlayer}
+                            selectedPlayerIds={selectedPlayerIds}
                         />
                     );
                 })}

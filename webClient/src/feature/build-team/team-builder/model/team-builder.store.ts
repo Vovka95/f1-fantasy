@@ -1,16 +1,21 @@
 import { create } from 'zustand';
-import { nanoid } from 'nanoid';
 
 import type { PlayerPosition, PlayerPreview } from '@/entities/player';
 import type { TeamPlayer } from '@/entities/fantasy-team';
+import type { FantasyTeamPlayer } from '@/entities/fantasy-team/api/fantasy-team-response.type';
 
 import type {
     GeneratedTeam,
     GeneratedTeamFormState,
 } from './team-builder.types';
 
-import { MAX_CONSTRUCTORS, MAX_DRIVERS } from './team-builder.validation';
-import type { FantasyTeamPlayer } from '@/entities/fantasy-team/api/fantasy-team-response.type';
+import {
+    MAX_CONSTRUCTORS,
+    MAX_DRIVERS,
+    validateBuilder,
+} from './team-builder.validation';
+
+import { mapFormToGeneratedTeam } from './team-builder.mapper';
 
 type UserGeneratedTeamsState = {
     form: GeneratedTeamFormState;
@@ -232,12 +237,17 @@ export const useGeneratedTeamBuilderStore =
             set((state) => {
                 const userState = getUserState(state, userId);
 
-                const newTeam: GeneratedTeam = {
-                    id: nanoid(),
-                    drivers: userState.form.drivers,
-                    constructors: userState.form.constructors,
-                    createdAt: Date.now(),
-                };
+                const { isValid } = validateBuilder(userState.form);
+
+                if (!isValid) {
+                    return {
+                        byUserId: {
+                            ...state.byUserId,
+                        },
+                    };
+                }
+
+                const newTeam = mapFormToGeneratedTeam(userState.form);
 
                 return {
                     byUserId: {

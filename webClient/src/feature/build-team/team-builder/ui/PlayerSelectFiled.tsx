@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { PlusIcon } from 'lucide-react';
 
 import type { PlayerPreview } from '@/entities/player';
@@ -9,12 +10,21 @@ import { cn } from '@/shared/lib/cn';
 type PlayerSelectFiledProps = {
     player: PlayerPreview;
     onAddPlayer?: (player: PlayerPreview) => void;
+    selectedPlayerIds: string[];
 };
 
 export const PlayerSelectFiled = ({
     player,
     onAddPlayer,
+    selectedPlayerIds,
 }: PlayerSelectFiledProps) => {
+    const selectedSet = useMemo(
+        () => new Set(selectedPlayerIds),
+        [selectedPlayerIds],
+    );
+
+    const isSelected = selectedSet.has(player.id);
+
     const gridClass =
         'grid grid-cols-[minmax(0,1fr)_60px_60px_44px] gap-3 items-center lg:grid-cols-[88px_minmax(0,1fr)_70px_70px_70px_52px] md:gap-4';
 
@@ -61,6 +71,7 @@ export const PlayerSelectFiled = ({
             <IconButton
                 variant="primary"
                 onClick={() => onAddPlayer?.(player)}
+                disabled={isSelected || !player.isActive}
                 aria-label="Add Player"
                 icon={<PlusIcon />}
             />
