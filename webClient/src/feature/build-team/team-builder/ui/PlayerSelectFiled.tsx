@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { PlusIcon } from 'lucide-react';
 
 import type { PlayerPreview } from '@/entities/player';
@@ -10,19 +9,17 @@ import { cn } from '@/shared/lib/cn';
 type PlayerSelectFiledProps = {
     player: PlayerPreview;
     onAddPlayer?: (player: PlayerPreview) => void;
-    selectedPlayerIds: string[];
+    selectedSet: Set<string>;
+    remainingBudget: number;
 };
 
 export const PlayerSelectFiled = ({
     player,
     onAddPlayer,
-    selectedPlayerIds,
+    selectedSet,
+    remainingBudget,
 }: PlayerSelectFiledProps) => {
-    const selectedSet = useMemo(
-        () => new Set(selectedPlayerIds),
-        [selectedPlayerIds],
-    );
-
+    const isAffordable = player.value <= remainingBudget;
     const isSelected = selectedSet.has(player.id);
 
     const gridClass =
@@ -71,7 +68,7 @@ export const PlayerSelectFiled = ({
             <IconButton
                 variant="primary"
                 onClick={() => onAddPlayer?.(player)}
-                disabled={isSelected || !player.isActive}
+                disabled={isSelected || !player.isActive || !isAffordable}
                 aria-label="Add Player"
                 icon={<PlusIcon />}
             />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
     flexRender,
     getCoreRowModel,
@@ -11,14 +11,15 @@ import {
 import type { PlayerPreview } from '@/entities/player';
 
 import { PlayerSelectFiled } from './PlayerSelectFiled';
+import { Button } from '@/shared/ui';
 
 import { cn } from '@/shared/lib/cn';
-import { Button } from '@/shared/ui';
 
 type PlayerSelectListProps = {
     players: PlayerPreview[];
     onAddPlayer?: (player: PlayerPreview) => void;
     selectedPlayerIds: string[];
+    remainingBudget: number;
 };
 
 export const columns: ColumnDef<PlayerPreview>[] = [
@@ -40,10 +41,16 @@ export const PlayerSelectList = ({
     players,
     onAddPlayer,
     selectedPlayerIds,
+    remainingBudget,
 }: PlayerSelectListProps) => {
     const [sorting, setSorting] = useState<SortingState>([
         { id: 'overallPoints', desc: true },
     ]);
+
+    const selectedSet = useMemo(
+        () => new Set(selectedPlayerIds),
+        [selectedPlayerIds],
+    );
 
     const table = useReactTable({
         data: players,
@@ -100,7 +107,8 @@ export const PlayerSelectList = ({
                         <PlayerSelectFiled
                             player={row.original}
                             onAddPlayer={onAddPlayer}
-                            selectedPlayerIds={selectedPlayerIds}
+                            selectedSet={selectedSet}
+                            remainingBudget={remainingBudget}
                         />
                     );
                 })}

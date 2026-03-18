@@ -1,13 +1,15 @@
 import { useState } from 'react';
 
 import { CurrentBuildTeam } from '@/feature/build-team/current-build-team';
+import { TeamBuilderForm } from '@/feature/build-team/team-builder';
+
 import {
     TeamOwnerSwitch,
     volodymyrId,
     type TeamOwnerType,
 } from '@/feature/team-owner-switch';
+
 import { Divider } from '@/shared/ui';
-import { SelectedTeamPreview } from '@/feature/build-team/team-builder';
 
 export const BuildTeamPage = () => {
     const [userId, setUserId] = useState<TeamOwnerType>(volodymyrId);
@@ -30,8 +32,8 @@ export const BuildTeamPage = () => {
                         <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-auto"></div>
                     </div>
 
-                    <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-auto">
-                        <SelectedTeamPreview userId={userId} />
+                    <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-hidden">
+                        <TeamBuilderForm userId={userId} raceWeek={raceWeek} />
                     </div>
                 </div>
             </section>

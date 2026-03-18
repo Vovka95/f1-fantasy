@@ -4,10 +4,8 @@ import type { TeamPlayer } from '@/entities/fantasy-team';
 
 import { BuildTeam } from '../../build-team-view';
 
-import {
-    getUserGeneratedTeamForm,
-    useGeneratedTeamBuilderStore,
-} from '../model/team-builder.store';
+import { useGeneratedTeamBuilderStore } from '../model/team-builder.store';
+import { getUserGeneratedTeamForm } from '../model/team-builder.selectors';
 
 type SelectedTeamPreviewProps = {
     userId: TeamOwnerType;
@@ -36,11 +34,11 @@ export const SelectedTeamPreview = ({ userId }: SelectedTeamPreviewProps) => {
 
     const onRemovePlayer = (player: TeamPlayer) => {
         if (player.preview.positionName == 'DRIVER') {
-            removeDriver(userId, player.preview.id);
+            removeDriver(userId, player.preview);
         }
 
         if (player.preview.positionName == 'CONSTRUCTOR') {
-            removeConstructor(userId, player.preview.id);
+            removeConstructor(userId, player.preview);
         }
     };
 
@@ -49,7 +47,7 @@ export const SelectedTeamPreview = ({ userId }: SelectedTeamPreviewProps) => {
     };
 
     return (
-        <div className="w-full p-3 rounded-md">
+        <div className="w-full p-3 rounded-md bg-bg">
             <BuildTeam
                 drivers={drivers}
                 constructors={constructors}

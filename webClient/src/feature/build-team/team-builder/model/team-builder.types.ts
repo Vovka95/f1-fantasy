@@ -3,6 +3,7 @@ import type { TeamPlayer } from '@/entities/fantasy-team';
 export type GeneratedTeamFormState = {
     drivers: TeamPlayer[];
     constructors: TeamPlayer[];
+    initialBudget: number;
 };
 
 export type GeneratedTeam = {
