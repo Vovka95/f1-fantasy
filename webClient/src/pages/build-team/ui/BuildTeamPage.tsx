@@ -7,6 +7,7 @@ import {
     type TeamOwnerType,
 } from '@/feature/team-owner-switch';
 import { Divider } from '@/shared/ui';
+import { SelectedTeamPreview } from '@/feature/build-team/team-builder';
 
 export const BuildTeamPage = () => {
     const [userId, setUserId] = useState<TeamOwnerType>(volodymyrId);
@@ -30,7 +31,7 @@ export const BuildTeamPage = () => {
                     </div>
 
                     <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-auto">
-                        Builder coming soone
+                        <SelectedTeamPreview userId={userId} />
                     </div>
                 </div>
             </section>

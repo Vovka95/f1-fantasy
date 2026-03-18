@@ -31,11 +31,10 @@ export const BuildTeamPlayerPreviewCard = ({
             {isRemovable && (
                 <IconButton
                     onClick={() => onRemovePlayer(player)}
-                    variant="secondary"
                     size="xs"
                     icon={<XIcon size={18} />}
                     aria-label="Remove Player"
-                    className="rounded-md h-6 w-6 cursor-pointer absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="bg-card rounded-md h-6 w-6 cursor-pointer absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity"
                 />
             )}
         </div>

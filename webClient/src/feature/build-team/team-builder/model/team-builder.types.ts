@@ -1,19 +1,13 @@
-import type { FantasyTeamPlayer } from '@/entities/fantasy-team/api/fantasy-team-response.type';
-import type { PlayerPreview } from '@/entities/player';
-
-export type BuilderPlayer = {
-    preview: PlayerPreview;
-    raceInfo: FantasyTeamPlayer;
-};
+import type { TeamPlayer } from '@/entities/fantasy-team';
 
 export type GeneratedTeamFormState = {
-    drivers: BuilderPlayer[];
-    constructors: BuilderPlayer[];
+    drivers: TeamPlayer[];
+    constructors: TeamPlayer[];
 };
 
 export type GeneratedTeam = {
     id: string;
-    drivers: BuilderPlayer[];
-    constructors: BuilderPlayer[];
+    drivers: TeamPlayer[];
+    constructors: TeamPlayer[];
     createdAt: number;
 };

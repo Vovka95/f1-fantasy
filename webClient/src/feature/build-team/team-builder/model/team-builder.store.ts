@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { nanoid } from 'nanoid';
 
-import type { PlayerPreview } from '@/entities/player';
+import type { PlayerPosition, PlayerPreview } from '@/entities/player';
+import type { TeamPlayer } from '@/entities/fantasy-team';
+
 import type {
-    BuilderPlayer,
     GeneratedTeam,
     GeneratedTeamFormState,
 } from './team-builder.types';
@@ -31,21 +32,24 @@ type GeneratedTeamBuilderStoreState = {
 
     createTeamFromForm: (userId: string) => void;
     removeTeam: (userId: string, teamId: string) => void;
+
+    selectedPositionType: PlayerPosition;
+    setSelectedPositionType: (selectedPositionType: PlayerPosition) => void;
 };
 
-const createEmptyState = (): UserGeneratedTeamsState => ({
+const EMPTY_STATE: UserGeneratedTeamsState = {
     form: {
         drivers: [],
         constructors: [],
     },
     teams: [],
-});
+};
 
 const getUserState = (
     state: GeneratedTeamBuilderStoreState,
     userId: string,
 ): UserGeneratedTeamsState => {
-    return state.byUserId[userId] ?? createEmptyState();
+    return state.byUserId[userId] ?? EMPTY_STATE;
 };
 
 const generatePlayerRaceInfoDefaultValue = (id: string): FantasyTeamPlayer => {
@@ -59,10 +63,10 @@ const generatePlayerRaceInfoDefaultValue = (id: string): FantasyTeamPlayer => {
 };
 
 const addPlayerToList = (
-    list: BuilderPlayer[],
+    list: TeamPlayer[],
     playerPreview: PlayerPreview,
     max: number,
-): BuilderPlayer[] => {
+): TeamPlayer[] => {
     if (list.length >= max) return list;
 
     const exists = list.some((p) => p.preview.id === playerPreview.id);
@@ -78,18 +82,18 @@ const addPlayerToList = (
 };
 
 const removePlayerFromList = (
-    list: BuilderPlayer[],
+    list: TeamPlayer[],
     playerId: string,
-): BuilderPlayer[] => {
+): TeamPlayer[] => {
     if (list.length === 0) return list;
 
     return list.filter((d) => d.preview.id !== playerId);
 };
 
 const updatePlayerList = (
-    list: BuilderPlayer[],
+    list: TeamPlayer[],
     playerId: string,
-): BuilderPlayer[] => {
+): TeamPlayer[] => {
     return list.map((p) => ({
         ...p,
         raceInfo: {
@@ -218,7 +222,7 @@ export const useGeneratedTeamBuilderStore =
                 byUserId: {
                     ...state.byUserId,
                     [userId]: {
-                        ...createEmptyState(),
+                        ...EMPTY_STATE,
                     },
                 },
             }));
@@ -241,7 +245,7 @@ export const useGeneratedTeamBuilderStore =
                         [userId]: {
                             ...userState,
                             teams: [...userState.teams, newTeam],
-                            form: createEmptyState().form,
+                            form: { ...EMPTY_STATE.form },
                         },
                     },
                 };
@@ -265,6 +269,9 @@ export const useGeneratedTeamBuilderStore =
                 };
             });
         },
+
+        selectedPositionType: 'DRIVER',
+        setSelectedPositionType: (v) => set({ selectedPositionType: v }),
     }));
 
 export const getUserGeneratedTeamForm = (
