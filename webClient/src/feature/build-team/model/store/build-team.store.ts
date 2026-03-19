@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 import type { PlayerPositionNameType, PlayerPreview } from '@/entities/player';
-import type { TeamPlayer } from '@/entities/fantasy-team';
+import type { FantasyUserTeam, TeamPlayer } from '@/entities/fantasy-team';
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
 import {
@@ -13,14 +13,21 @@ import {
 } from './build-team-store.helpers';
 
 import type { UserGeneratedTeamsState } from '../types';
-import { mapFormToGeneratedTeam } from '../mappers';
+
 import { validateBuilder } from '../validations';
 import { MAX_CONSTRUCTORS, MAX_DRIVERS } from '../constants';
+import { mapFantasyTeamToView, mapFormStateToView } from '../mappers';
 
 export type GeneratedTeamBuilderStoreState = {
     byUserId: Record<string, UserGeneratedTeamsState>;
 
     setInitialBudget: (userId: TeamOwnerType, budget: number) => void;
+
+    setFantasyUserTeam: (
+        userId: TeamOwnerType,
+        fantasyTeam: FantasyUserTeam,
+        playersPreview: PlayerPreview[],
+    ) => void;
 
     addPlayer: (userId: TeamOwnerType, playerPreview: PlayerPreview) => void;
     removePlayer: (userId: TeamOwnerType, player: TeamPlayer) => void;
@@ -59,6 +66,31 @@ export const useGeneratedTeamBuilderStore =
                                 ...userState.form,
                                 initialBudget: budget,
                             },
+                        },
+                    },
+                };
+            });
+        },
+
+        setFantasyUserTeam: (userId, fantasyTeam, playersPreview) => {
+            set((state) => {
+                const userState = getUserState(state, userId);
+
+                if (Boolean(userState.fantasyUserTeam)) {
+                    return state;
+                }
+
+                const fantasyUserTeam = mapFantasyTeamToView({
+                    fantasyTeam,
+                    playersPreview,
+                });
+
+                return {
+                    byUserId: {
+                        ...state.byUserId,
+                        [userId]: {
+                            ...userState,
+                            fantasyUserTeam: fantasyUserTeam,
                         },
                     },
                 };
@@ -191,7 +223,7 @@ export const useGeneratedTeamBuilderStore =
                     };
                 }
 
-                const newTeam = mapFormToGeneratedTeam(userState.form);
+                const newTeam = mapFormStateToView(userState.form);
 
                 return {
                     byUserId: {

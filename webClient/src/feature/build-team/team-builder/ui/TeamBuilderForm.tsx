@@ -25,6 +25,10 @@ export const TeamBuilderForm = ({
         (state) => state.setInitialBudget,
     );
 
+    const setFantasyUserTeam = useGeneratedTeamBuilderStore(
+        (state) => state.setFantasyUserTeam,
+    );
+
     const initialBudget = fantasyUserTeam.team_info.maxTeambal;
 
     useEffect(() => {
@@ -32,6 +36,10 @@ export const TeamBuilderForm = ({
 
         setInitialBudget(userId, initialBudget);
     }, [initialBudget, userId, setInitialBudget]);
+
+    useEffect(() => {
+        setFantasyUserTeam(userId, fantasyUserTeam, playersPreview);
+    }, [userId, setFantasyUserTeam]);
 
     return (
         <div className="flex min-h-0 bg-card p-3 gap-2 rounded-md flex-col items-center">

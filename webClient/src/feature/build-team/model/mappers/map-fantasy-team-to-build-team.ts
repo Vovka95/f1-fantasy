@@ -1,14 +1,16 @@
 import type { PlayerPreview } from '@/entities/player';
 import type { FantasyUserTeam } from '@/entities/fantasy-team';
 
-import type { BuildTeamViewModel } from '../../model';
+import type { BuildTeamViewModel } from '../types';
+
+import { calculatePoints } from './mapper.helper';
 
 type MapCurrentBuildTeamToViewParams = {
     fantasyTeam: FantasyUserTeam;
     playersPreview: PlayerPreview[];
 };
 
-export const mapCurrentBuildTeamToView = ({
+export const mapFantasyTeamToView = ({
     fantasyTeam,
     playersPreview,
 }: MapCurrentBuildTeamToViewParams): BuildTeamViewModel => {
@@ -33,13 +35,7 @@ export const mapCurrentBuildTeamToView = ({
         (p) => p.preview.positionName === 'CONSTRUCTOR',
     );
 
-    const calculatedPoints = [...drivers, ...constructors].reduce((a, b) => {
-        const playerPoints = b.raceInfo.iscaptain
-            ? b.preview.overallPoints * 2
-            : b.preview.overallPoints;
-
-        return a + playerPoints;
-    }, 0);
+    const calculatedPoints = calculatePoints([...drivers, ...constructors]);
 
     return {
         id: `${fantasyTeam.socialId}`,

@@ -4,21 +4,18 @@ import {
     getRemainingBudget,
     type BuildTeamViewModel,
     type GeneratedTeamFormState,
-} from '../../model';
+} from '..';
 
-const calculatePoints = (form: GeneratedTeamFormState) => {
-    return [...form.drivers, ...form.constructors].reduce((a, b) => {
-        const playerPoints = b.raceInfo.iscaptain
-            ? b.preview.overallPoints * 2
-            : b.preview.overallPoints;
+import { calculatePoints } from './mapper.helper';
 
-        return a + playerPoints;
-    }, 0);
-};
-
-export const mapFormToGeneratedTeam = (
+export const mapFormStateToView = (
     form: GeneratedTeamFormState,
 ): BuildTeamViewModel => {
+    const calculatedPoints = calculatePoints([
+        ...form.drivers,
+        ...form.constructors,
+    ]);
+
     return {
         id: form.id ?? nanoid(),
         players: {
@@ -26,7 +23,7 @@ export const mapFormToGeneratedTeam = (
             constructors: form.constructors,
         },
         summary: {
-            calculatedPoints: calculatePoints(form),
+            calculatedPoints: calculatedPoints,
             remainingBudget: getRemainingBudget(form),
         },
     };

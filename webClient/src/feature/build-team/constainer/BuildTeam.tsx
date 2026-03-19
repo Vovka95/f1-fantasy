@@ -33,11 +33,7 @@ export const BuildTeam = ({ userId, raceWeek }: BuildTeamProps) => {
     return (
         <div className="flex gap-10 h-full min-h-0 overflow-hidden">
             <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-hidden">
-                <CurrentBuildTeam
-                    userId={userId}
-                    playersPreview={playersQuery.data.preview}
-                    fantasyUserTeam={fantasyTeamQuery.data}
-                />
+                <CurrentBuildTeam userId={userId} />
 
                 <Divider />
 
