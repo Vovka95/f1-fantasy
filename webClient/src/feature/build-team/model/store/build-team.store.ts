@@ -16,7 +16,11 @@ import type { UserGeneratedTeamsState } from '../types';
 
 import { validateBuilder } from '../validations';
 import { MAX_CONSTRUCTORS, MAX_DRIVERS } from '../constants';
-import { mapFantasyTeamToView, mapFormStateToView } from '../mappers';
+import {
+    mapBuildTeamFormState,
+    mapFantasyTeamToView,
+    mapFormStateToView,
+} from '../mappers';
 
 export type GeneratedTeamBuilderStoreState = {
     byUserId: Record<string, UserGeneratedTeamsState>;
@@ -36,7 +40,9 @@ export type GeneratedTeamBuilderStoreState = {
 
     resetForm: (userId: TeamOwnerType) => void;
 
-    createTeamFromForm: (userId: TeamOwnerType) => void;
+    setFormFromTeam: (userId: TeamOwnerType, teamId: string) => void;
+
+    saveTeamFromForm: (userId: TeamOwnerType) => void;
     removeTeam: (userId: TeamOwnerType, teamId: string) => void;
 
     selectedPositionType: PlayerPositionNameType;
@@ -209,31 +215,65 @@ export const useGeneratedTeamBuilderStore =
             });
         },
 
-        createTeamFromForm: (userId) => {
+        setFormFromTeam: (userId, teamId) => {
             set((state) => {
                 const userState = getUserState(state, userId);
 
-                const { isValid } = validateBuilder(userState.form);
+                const teamToEdit = userState.teams.find((t) => t.id === teamId);
 
-                if (!isValid) {
-                    return {
-                        byUserId: {
-                            ...state.byUserId,
-                        },
-                    };
+                if (!teamToEdit) {
+                    return { byUserId: state.byUserId };
                 }
 
-                const newTeam = mapFormStateToView(userState.form);
+                const form = mapBuildTeamFormState(teamToEdit, userState.form);
 
                 return {
                     byUserId: {
                         ...state.byUserId,
                         [userId]: {
                             ...userState,
-                            teams: [...userState.teams, newTeam],
+                            form,
+                        },
+                    },
+                };
+            });
+        },
+
+        saveTeamFromForm: (userId) => {
+            set((state) => {
+                const userState = getUserState(state, userId);
+                const { form } = userState;
+
+                const { isValid } = validateBuilder(form);
+
+                if (!isValid) {
+                    return {
+                        byUserId: state.byUserId,
+                    };
+                }
+
+                const mappedTeam = mapFormStateToView(form);
+
+                const teams = form.id
+                    ? userState.teams.map((team) =>
+                          team.id === form.id
+                              ? {
+                                    ...mappedTeam,
+                                    id: form.id,
+                                }
+                              : team,
+                      )
+                    : [...userState.teams, mappedTeam];
+
+                return {
+                    byUserId: {
+                        ...state.byUserId,
+                        [userId]: {
+                            ...userState,
+                            teams,
                             form: {
                                 ...EMPTY_STATE.form,
-                                initialBudget: userState.form.initialBudget,
+                                initialBudget: form.initialBudget,
                             },
                         },
                     },
@@ -244,6 +284,7 @@ export const useGeneratedTeamBuilderStore =
         removeTeam: (userId, teamId) => {
             set((state) => {
                 const userState = getUserState(state, userId);
+                const isEditingRemovedTeam = userState.form.id === teamId;
 
                 return {
                     byUserId: {
@@ -253,6 +294,13 @@ export const useGeneratedTeamBuilderStore =
                             teams: userState.teams.filter(
                                 (t) => t.id !== teamId,
                             ),
+                            form: isEditingRemovedTeam
+                                ? {
+                                      ...EMPTY_STATE.form,
+                                      initialBudget:
+                                          userState.form.initialBudget,
+                                  }
+                                : userState.form,
                         },
                     },
                 };

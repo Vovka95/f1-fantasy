@@ -2,7 +2,7 @@ import { Edit2Icon, XIcon } from 'lucide-react';
 
 import { Button, IconButton } from '@/shared/ui';
 
-import type { BuildTeamActionModel } from '../model';
+import type { BuildTeamActionModel } from '../../model';
 
 type BuildTeamActionProps = BuildTeamActionModel & {
     teamId: string;

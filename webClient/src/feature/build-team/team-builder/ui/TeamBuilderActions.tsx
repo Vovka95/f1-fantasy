@@ -14,8 +14,8 @@ type TeamBuilderActionProps = {
 };
 
 export const TeamBuilderAction = ({ userId }: TeamBuilderActionProps) => {
-    const createTeamFromForm = useGeneratedTeamBuilderStore(
-        (state) => state.createTeamFromForm,
+    const saveTeamFromForm = useGeneratedTeamBuilderStore(
+        (state) => state.saveTeamFromForm,
     );
 
     const resetForm = useGeneratedTeamBuilderStore((state) => state.resetForm);
@@ -49,13 +49,13 @@ export const TeamBuilderAction = ({ userId }: TeamBuilderActionProps) => {
 
             <div className="flex gap-3">
                 <Button variant="secondary" onClick={() => resetForm(userId)}>
-                    Reset
+                    Cancel
                 </Button>
                 <Button
                     variant="primary"
-                    onClick={() => createTeamFromForm(userId)}
+                    onClick={() => saveTeamFromForm(userId)}
                 >
-                    Create Team
+                    Save Team
                 </Button>
             </div>
         </div>

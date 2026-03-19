@@ -22,8 +22,16 @@ export const GeneratedBuildTeamList = ({
         (state) => state.removeTeam,
     );
 
+    const setFormFromTeam = useGeneratedTeamBuilderStore(
+        (state) => state.setFormFromTeam,
+    );
+
     const onRemoveTeam = (teamId: string) => {
         removeTeam(userId, teamId);
+    };
+
+    const onEditTeam = (teamId: string) => {
+        setFormFromTeam(userId, teamId);
     };
 
     return (
@@ -36,6 +44,7 @@ export const GeneratedBuildTeamList = ({
                         teamAction={{
                             mode: 'editable',
                             onRemoveTeam: onRemoveTeam,
+                            onEditTeam: onEditTeam,
                         }}
                     />
                 );

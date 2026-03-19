@@ -12,6 +12,7 @@ export const EMPTY_STATE: UserGeneratedTeamsState = {
         initialBudget: 0,
     },
     teams: [],
+    fantasyUserTeam: null,
 };
 
 export const getUserState = (

@@ -40,7 +40,7 @@ export type BuildTeamViewModel = {
 export type UserGeneratedTeamsState = {
     form: GeneratedTeamFormState;
     teams: BuildTeamViewModel[];
-    fantasyUserTeam: BuildTeamViewModel;
+    fantasyUserTeam: BuildTeamViewModel | null;
 };
 
 export type GeneratedTeamFormState = {
