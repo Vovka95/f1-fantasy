@@ -1,2 +1,1 @@
-export * from './BuildTeamView';
-export * from './BuildTeamPlayersGrid';
+export * from './build-team-view';

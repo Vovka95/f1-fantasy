@@ -7,7 +7,7 @@ import type {
     BuildTeamEmptySlotActionModel,
     BuildTeamPlayerActionModel,
     BuildTeamViewModel,
-} from '../model';
+} from '../../model';
 
 type BuildTeamViewProps = {
     team: BuildTeamViewModel;

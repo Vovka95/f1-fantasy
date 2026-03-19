@@ -9,7 +9,7 @@ import {
     type BuildTeamEmptySlotActionModel,
     type BuildTeamPlayerActionModel,
     type BuildTeamPlayersModel,
-} from '../model';
+} from '../../model';
 
 type BuildTeamPlayersGridProps = {
     players: BuildTeamPlayersModel;
