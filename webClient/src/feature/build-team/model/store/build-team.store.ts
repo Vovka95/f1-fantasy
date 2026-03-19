@@ -96,7 +96,8 @@ export const useGeneratedTeamBuilderStore =
                         ...state.byUserId,
                         [userId]: {
                             ...userState,
-                            fantasyUserTeam: fantasyUserTeam,
+                            fantasyUserBuildTeam: fantasyUserTeam,
+                            fantasyUserTeam: fantasyTeam,
                         },
                     },
                 };
@@ -252,7 +253,11 @@ export const useGeneratedTeamBuilderStore =
                     };
                 }
 
-                const mappedTeam = mapFormStateToView(form);
+                const mappedTeam = mapFormStateToView(
+                    userState.fantasyUserTeam,
+                    userState.fantasyUserBuildTeam,
+                    form,
+                );
 
                 const teams = form.id
                     ? userState.teams.map((team) =>

@@ -8,6 +8,6 @@ import { getUserState } from '../build-team-store.helpers';
 export const getUserFantasyTeam = (
     state: GeneratedTeamBuilderStoreState,
     userId: TeamOwnerType,
-): BuildTeamViewModel => {
-    return getUserState(state, userId).fantasyUserTeam;
+): BuildTeamViewModel | null => {
+    return getUserState(state, userId).fantasyUserBuildTeam;
 };

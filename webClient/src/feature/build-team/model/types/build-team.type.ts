@@ -1,4 +1,4 @@
-import type { TeamPlayer } from '@/entities/fantasy-team';
+import type { FantasyUserTeam, TeamPlayer } from '@/entities/fantasy-team';
 import type { PlayerPositionNameType } from '@/entities/player';
 
 export type BuildTeamPlayersModel = {
@@ -10,6 +10,9 @@ export type BuildTeamSummaryModel = {
     overallPoints?: number;
     calculatedPoints: number;
     remainingBudget?: number;
+    transfersCount?: number;
+    extraTransfers?: number;
+    pointsWithAdditionalTransfers?: number;
 };
 
 export type BuildTeamMode = 'readonly' | 'editable';
@@ -40,7 +43,8 @@ export type BuildTeamViewModel = {
 export type UserGeneratedTeamsState = {
     form: GeneratedTeamFormState;
     teams: BuildTeamViewModel[];
-    fantasyUserTeam: BuildTeamViewModel | null;
+    fantasyUserTeam: FantasyUserTeam | null;
+    fantasyUserBuildTeam: BuildTeamViewModel | null;
 };
 
 export type GeneratedTeamFormState = {

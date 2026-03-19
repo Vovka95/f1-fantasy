@@ -8,3 +8,4 @@ export * from './Select';
 export * from './FullPageLoader';
 export * from './SegmentedControl';
 export * from './Divider';
+export * from './Slat';
