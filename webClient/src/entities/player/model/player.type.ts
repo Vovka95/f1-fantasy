@@ -1,9 +1,9 @@
-export type PlayerPosition = 'DRIVER' | 'CONSTRUCTOR';
+import type { PlayerPositionNameType } from '../api/players-list-response.types';
 
 export type Player = {
     id: string;
     displayName: string;
-    positionName: PlayerPosition;
+    positionName: PlayerPositionNameType;
     teamName: string;
     price: number;
     points: number;
@@ -18,7 +18,7 @@ export type PlayerPreview = {
     shortName: string;
     imageUrl: string | null;
     teamName: string;
-    positionName: PlayerPosition;
+    positionName: PlayerPositionNameType;
     value: number;
     valueChange: number;
     overallPoints: number;

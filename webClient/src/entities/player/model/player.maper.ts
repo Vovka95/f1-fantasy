@@ -1,4 +1,7 @@
-import type { PlayerResponse } from '../api/players-list-response.types';
+import type {
+    PlayerPositionNameType,
+    PlayerResponse,
+} from '../api/players-list-response.types';
 import type { Player, PlayerPreview } from './player.type';
 
 import {
@@ -10,7 +13,7 @@ export const mapPlayer = (asset: PlayerResponse): Player => {
     return {
         id: asset.PlayerId,
         displayName: asset.DisplayName,
-        positionName: asset.PositionName as 'DRIVER' | 'CONSTRUCTOR',
+        positionName: asset.PositionName as PlayerPositionNameType,
         teamName: asset.TeamName || '—',
         price: Number(asset.Value),
         points: Number(asset.OverallPpints),
@@ -35,7 +38,7 @@ const mapPlayerToPreview = (asset: PlayerResponse): PlayerPreview => {
         imageUrl,
 
         teamName: asset.TeamName || asset.DisplayName,
-        positionName: asset.PositionName as 'DRIVER' | 'CONSTRUCTOR',
+        positionName: asset.PositionName as PlayerPositionNameType,
         value: Number(asset.Value),
         valueChange: Number(asset.new_value) - Number(asset.old_Value),
         overallPoints: Number(asset.OverallPpints),

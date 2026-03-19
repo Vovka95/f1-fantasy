@@ -20,12 +20,12 @@ type AdditionalStats = {
     value_for_money: number;
 };
 
-type PlayerPosition = 'DRIVER' | 'CONSTRUCTOR';
+export type PlayerPositionNameType = 'DRIVER' | 'CONSTRUCTOR';
 
 export type PlayerResponse = {
     PlayerId: string;
     Skill: number;
-    PositionName: PlayerPosition;
+    PositionName: PlayerPositionNameType;
     Value: number;
     TeamId: string;
     FUllName: string;
