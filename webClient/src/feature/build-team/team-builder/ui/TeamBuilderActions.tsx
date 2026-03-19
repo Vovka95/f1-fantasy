@@ -1,8 +1,7 @@
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
 import { Button } from '@/shared/ui';
-
-import { useGeneratedTeamBuilderStore } from '../model/team-builder.store';
+import { useGeneratedTeamBuilderStore } from '../../model';
 
 type TeamBuilderActionProps = {
     userId: TeamOwnerType;
@@ -10,10 +9,10 @@ type TeamBuilderActionProps = {
 
 export const TeamBuilderAction = ({ userId }: TeamBuilderActionProps) => {
     const createTeamFromForm = useGeneratedTeamBuilderStore(
-        (s) => s.createTeamFromForm,
+        (state) => state.createTeamFromForm,
     );
 
-    const resetForm = useGeneratedTeamBuilderStore((s) => s.resetForm);
+    const resetForm = useGeneratedTeamBuilderStore((state) => state.resetForm);
 
     return (
         <div className="flex gap-3">

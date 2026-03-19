@@ -37,6 +37,11 @@ export type BuildTeamViewModel = {
     summary: BuildTeamSummaryModel;
 };
 
+export type UserGeneratedTeamsState = {
+    form: GeneratedTeamFormState;
+    teams: BuildTeamViewModel[];
+};
+
 export type GeneratedTeamFormState = {
     id?: string;
     drivers: TeamPlayer[];

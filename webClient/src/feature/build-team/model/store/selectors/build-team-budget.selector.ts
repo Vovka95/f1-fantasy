@@ -1,7 +1,8 @@
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
-import type { GeneratedTeamBuilderStoreState } from './team-builder.store';
-import type { GeneratedTeamFormState } from './team-builder.types';
-import { getUserGeneratedTeamForm } from './team-builder.selectors';
+
+import type { GeneratedTeamFormState } from '../../types';
+import type { GeneratedTeamBuilderStoreState } from '../build-team.store';
+import { getUserGeneratedTeamForm } from './build-team-form.selector';
 
 const toInternal = (value: number) => Math.round(value * 10);
 const fromInternal = (value: number) => value / 10;

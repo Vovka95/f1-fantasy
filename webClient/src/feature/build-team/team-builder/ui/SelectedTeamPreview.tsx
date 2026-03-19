@@ -1,49 +1,51 @@
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
 import type { TeamPlayer } from '@/entities/fantasy-team';
+import type { PlayerPositionNameType } from '@/entities/player';
 
 import { BuildTeamPlayersGrid } from '../../ui';
 
-import { useGeneratedTeamBuilderStore } from '../model/team-builder.store';
-import { getUserGeneratedTeamForm } from '../model/team-builder.selectors';
+import {
+    getUserGeneratedTeamForm,
+    useGeneratedTeamBuilderStore,
+} from '../../model';
+import { useShallow } from 'zustand/react/shallow';
 
 type SelectedTeamPreviewProps = {
     userId: TeamOwnerType;
 };
 
 export const SelectedTeamPreview = ({ userId }: SelectedTeamPreviewProps) => {
-    const { drivers, constructors } = useGeneratedTeamBuilderStore((state) =>
-        getUserGeneratedTeamForm(state, userId),
-    );
+    const {
+        drivers,
+        constructors,
+        removePlayer,
+        setCaptain,
+        setSelectedPositionType,
+    } = useGeneratedTeamBuilderStore(
+        useShallow((state) => {
+            const form = getUserGeneratedTeamForm(state, userId);
 
-    const removeDriver = useGeneratedTeamBuilderStore(
-        (state) => state.removeDriver,
-    );
-
-    const removeConstructor = useGeneratedTeamBuilderStore(
-        (state) => state.removeConstructor,
-    );
-
-    const setCaptain = useGeneratedTeamBuilderStore(
-        (state) => state.setCaptain,
-    );
-
-    const setSelectedPositionType = useGeneratedTeamBuilderStore(
-        (state) => state.setSelectedPositionType,
+            return {
+                drivers: form.drivers,
+                constructors: form.constructors,
+                removePlayer: state.removePlayer,
+                setCaptain: state.setCaptain,
+                setSelectedPositionType: state.setSelectedPositionType,
+            };
+        }),
     );
 
     const onRemovePlayer = (player: TeamPlayer) => {
-        if (player.preview.positionName == 'DRIVER') {
-            removeDriver(userId, player.preview);
-        }
-
-        if (player.preview.positionName == 'CONSTRUCTOR') {
-            removeConstructor(userId, player.preview);
-        }
+        removePlayer(userId, player);
     };
 
     const onCaptainChange = (player: TeamPlayer) => {
-        setCaptain(userId, player.preview.id);
+        setCaptain(userId, player);
+    };
+
+    const onEmptySlotClick = (positionType: PlayerPositionNameType) => {
+        setSelectedPositionType(positionType);
     };
 
     return (
@@ -56,7 +58,7 @@ export const SelectedTeamPreview = ({ userId }: SelectedTeamPreviewProps) => {
                     mode: 'editable',
                 }}
                 emptySlotActions={{
-                    onEmptySlotClick: setSelectedPositionType,
+                    onEmptySlotClick: onEmptySlotClick,
                     mode: 'editable',
                 }}
             />

@@ -1,7 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
-import { usePlayersQuery, type PlayerPreview } from '@/entities/player';
+import {
+    usePlayersQuery,
+    type PlayerPositionNameType,
+    type PlayerPreview,
+} from '@/entities/player';
 import { useFantasyTeamQuery } from '@/entities/fantasy-team';
 import { PlayersEntityTypeSwitch } from '@/feature/players-entity-type-switch';
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
@@ -9,10 +13,11 @@ import type { TeamOwnerType } from '@/feature/team-owner-switch';
 import { PlayerSelectList } from './PlayerSelectList';
 import { TeamBuilderAction } from './TeamBuilderActions';
 import { SelectedTeamPreview } from './SelectedTeamPreview';
-
-import { useGeneratedTeamBuilderStore } from '../model/team-builder.store';
-import { getUserSelectedPlayerIds } from '../model/team-builder.selectors';
-import { getUserRemainingBudget } from '../model/team-builder-budget.selector';
+import {
+    getUserRemainingBudget,
+    getUserSelectedPlayerIds,
+    useGeneratedTeamBuilderStore,
+} from '../../model';
 
 type TeamBuilderFormProps = {
     userId: TeamOwnerType;
@@ -20,62 +25,58 @@ type TeamBuilderFormProps = {
 };
 
 export const TeamBuilderForm = ({ userId, raceWeek }: TeamBuilderFormProps) => {
-    const { data } = usePlayersQuery({ raceWeek });
+    const playersQuery = usePlayersQuery({ raceWeek });
 
     const fantasyTeamQuery = useFantasyTeamQuery({
         raceWeek,
         userId,
     });
 
-    const selectedPositionType = useGeneratedTeamBuilderStore(
-        (state) => state.selectedPositionType,
-    );
-
     const setInitialBudget = useGeneratedTeamBuilderStore(
         (state) => state.setInitialBudget,
     );
 
-    const selectedPlayerIds = useGeneratedTeamBuilderStore(
-        useShallow((state) => getUserSelectedPlayerIds(state, userId)),
+    const selectedPositionType = useGeneratedTeamBuilderStore(
+        (state) => state.selectedPositionType,
     );
 
     const setSelectedPositionType = useGeneratedTeamBuilderStore(
         (state) => state.setSelectedPositionType,
     );
 
-    const addDriver = useGeneratedTeamBuilderStore((state) => state.addDriver);
-
-    const addConstructor = useGeneratedTeamBuilderStore(
-        (state) => state.addConstructor,
-    );
+    const addPlayer = useGeneratedTeamBuilderStore((state) => state.addPlayer);
 
     const remainingBudget = useGeneratedTeamBuilderStore((state) =>
         getUserRemainingBudget(state, userId),
     );
 
-    const onAddPlayer = (playerPreview: PlayerPreview) => {
-        if (playerPreview.positionName == 'DRIVER') {
-            addDriver(userId, playerPreview);
-        }
+    const selectedPlayerIds = useGeneratedTeamBuilderStore(
+        useShallow((state) => getUserSelectedPlayerIds(state, userId)),
+    );
 
-        if (playerPreview.positionName == 'CONSTRUCTOR') {
-            addConstructor(userId, playerPreview);
-        }
+    const onAddPlayer = (playerPreview: PlayerPreview) => {
+        addPlayer(userId, playerPreview);
     };
 
-    useEffect(() => {
-        if (!fantasyTeamQuery.data) return;
+    const onSetSelectedPositionType = (value: PlayerPositionNameType) => {
+        setSelectedPositionType(value);
+    };
 
-        setInitialBudget(userId, fantasyTeamQuery.data.team_info.maxTeambal);
-    }, [fantasyTeamQuery.data, userId, setInitialBudget]);
+    const initialBudget = fantasyTeamQuery.data?.team_info.maxTeambal;
+
+    useEffect(() => {
+        if (!initialBudget) return;
+
+        setInitialBudget(userId, initialBudget);
+    }, [initialBudget, userId, setInitialBudget]);
 
     const players = useMemo(() => {
-        return data
-            ? data.preview.filter(
+        return playersQuery.data
+            ? playersQuery.data.preview.filter(
                   (item) => item.positionName === selectedPositionType,
               )
             : [];
-    }, [data, selectedPositionType]);
+    }, [playersQuery.data, selectedPositionType]);
 
     return (
         <div className="flex min-h-0 bg-card p-3 gap-2 rounded-md flex-col items-center">
@@ -84,7 +85,7 @@ export const TeamBuilderForm = ({ userId, raceWeek }: TeamBuilderFormProps) => {
             <div className="flex justify-between w-full">
                 <PlayersEntityTypeSwitch
                     value={selectedPositionType}
-                    onValueChange={setSelectedPositionType}
+                    onValueChange={onSetSelectedPositionType}
                 />
 
                 <div className="text-center h-full flex items-center">

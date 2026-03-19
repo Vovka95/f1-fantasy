@@ -1,7 +1,5 @@
-import type { GeneratedTeamFormState } from './team-builder.types';
-
-export const MAX_DRIVERS = 5;
-export const MAX_CONSTRUCTORS = 2;
+import { MAX_CONSTRUCTORS, MAX_DRIVERS } from '../constants';
+import type { GeneratedTeamFormState } from '../types';
 
 export const validateBuilder = (form: GeneratedTeamFormState) => {
     return {
