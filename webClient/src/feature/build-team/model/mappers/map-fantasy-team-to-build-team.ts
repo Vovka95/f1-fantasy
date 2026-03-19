@@ -4,6 +4,10 @@ import type { FantasyUserTeam } from '@/entities/fantasy-team';
 import type { BuildTeamViewModel } from '../types';
 
 import { calculatePoints } from './mapper.helper';
+import {
+    MAX_ALLOWED_TRANSFERS,
+    PENALTY_FOR_EXTRA_TRANSFER,
+} from '../constants';
 
 type MapCurrentBuildTeamToViewParams = {
     fantasyTeam: FantasyUserTeam;
@@ -38,6 +42,15 @@ export const mapFantasyTeamToView = ({
     const calculatedPoints = calculatePoints([...drivers, ...constructors]);
 
     const transfersCount = fantasyTeam?.usersubs ?? 0;
+    const freeTransfers = fantasyTeam?.subsallowed ?? MAX_ALLOWED_TRANSFERS;
+
+    const extraTransfers = Math.max(0, transfersCount - freeTransfers);
+
+    const penaltyPerTransfer =
+        fantasyTeam?.extrasubscost ?? PENALTY_FOR_EXTRA_TRANSFER;
+    const penalty = extraTransfers * penaltyPerTransfer;
+
+    const pointsWithAdditionalTransfers = calculatedPoints - penalty;
 
     return {
         id: `${fantasyTeam.socialId}`,
@@ -50,6 +63,8 @@ export const mapFantasyTeamToView = ({
             calculatedPoints,
             remainingBudget: fantasyTeam.team_info.teamBal,
             transfersCount,
+            extraTransfers,
+            pointsWithAdditionalTransfers,
         },
     };
 };
