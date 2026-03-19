@@ -2,17 +2,17 @@ import { useEffect, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 import {
-    usePlayersQuery,
     type PlayerPositionNameType,
     type PlayerPreview,
 } from '@/entities/player';
-import { useFantasyTeamQuery } from '@/entities/fantasy-team';
+import { type FantasyUserTeam } from '@/entities/fantasy-team';
 import { PlayersEntityTypeSwitch } from '@/feature/players-entity-type-switch';
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
 import { PlayerSelectList } from './PlayerSelectList';
 import { TeamBuilderAction } from './TeamBuilderActions';
 import { SelectedTeamPreview } from './SelectedTeamPreview';
+
 import {
     getUserRemainingBudget,
     getUserSelectedPlayerIds,
@@ -21,17 +21,15 @@ import {
 
 type TeamBuilderFormProps = {
     userId: TeamOwnerType;
-    raceWeek: number;
+    playersPreview: PlayerPreview[];
+    fantasyUserTeam: FantasyUserTeam;
 };
 
-export const TeamBuilderForm = ({ userId, raceWeek }: TeamBuilderFormProps) => {
-    const playersQuery = usePlayersQuery({ raceWeek });
-
-    const fantasyTeamQuery = useFantasyTeamQuery({
-        raceWeek,
-        userId,
-    });
-
+export const TeamBuilderForm = ({
+    userId,
+    playersPreview,
+    fantasyUserTeam,
+}: TeamBuilderFormProps) => {
     const setInitialBudget = useGeneratedTeamBuilderStore(
         (state) => state.setInitialBudget,
     );
@@ -62,7 +60,7 @@ export const TeamBuilderForm = ({ userId, raceWeek }: TeamBuilderFormProps) => {
         setSelectedPositionType(value);
     };
 
-    const initialBudget = fantasyTeamQuery.data?.team_info.maxTeambal;
+    const initialBudget = fantasyUserTeam.team_info.maxTeambal;
 
     useEffect(() => {
         if (!initialBudget) return;
@@ -71,12 +69,10 @@ export const TeamBuilderForm = ({ userId, raceWeek }: TeamBuilderFormProps) => {
     }, [initialBudget, userId, setInitialBudget]);
 
     const players = useMemo(() => {
-        return playersQuery.data
-            ? playersQuery.data.preview.filter(
-                  (item) => item.positionName === selectedPositionType,
-              )
-            : [];
-    }, [playersQuery.data, selectedPositionType]);
+        return playersPreview.filter(
+            (item) => item.positionName === selectedPositionType,
+        );
+    }, [playersPreview, selectedPositionType]);
 
     return (
         <div className="flex min-h-0 bg-card p-3 gap-2 rounded-md flex-col items-center">

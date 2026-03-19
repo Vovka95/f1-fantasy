@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { usePlayersQuery } from '@/entities/player';
-import { useFantasyTeamQuery } from '@/entities/fantasy-team';
+import { type PlayerPreview } from '@/entities/player';
+import { type FantasyUserTeam } from '@/entities/fantasy-team';
 
 import { BuildTeamView } from '../../ui';
 
@@ -9,34 +9,21 @@ import { mapCurrentBuildTeamToView } from '../model/map-current-build-team-to-vi
 
 type CurrentBuildTeamProps = {
     userId: string;
-    raceWeek: number;
+    playersPreview: PlayerPreview[];
+    fantasyUserTeam: FantasyUserTeam;
 };
 
 export const CurrentBuildTeam = ({
     userId,
-    raceWeek,
+    playersPreview,
+    fantasyUserTeam,
 }: CurrentBuildTeamProps) => {
-    const playersQuery = usePlayersQuery({ raceWeek });
-
-    const fantasyTeamQuery = useFantasyTeamQuery({
-        raceWeek,
-        userId,
-    });
-
     const viewModel = useMemo(() => {
-        if (!playersQuery.data || !fantasyTeamQuery.data) {
-            return null;
-        }
-
         return mapCurrentBuildTeamToView({
-            fantasyTeam: fantasyTeamQuery.data!,
-            playersPreview: playersQuery.data!.preview,
+            fantasyTeam: fantasyUserTeam,
+            playersPreview: playersPreview,
         });
-    }, [playersQuery.data, fantasyTeamQuery.data]);
-
-    if (!viewModel) {
-        return null;
-    }
+    }, [playersPreview, fantasyUserTeam]);
 
     return <BuildTeamView team={viewModel} />;
 };
