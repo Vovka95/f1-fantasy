@@ -1,11 +1,8 @@
 import { type GeneratedTeamBuilderStoreState } from './team-builder.store';
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
-import type {
-    GeneratedTeam,
-    GeneratedTeamFormState,
-} from './team-builder.types';
 import { getUserState } from './team-builder.store-helpers';
+import type { GeneratedTeamFormState, GeneratedTeamModel } from '../../model';
 
 export const getUserGeneratedTeamForm = (
     state: GeneratedTeamBuilderStoreState,
@@ -17,7 +14,7 @@ export const getUserGeneratedTeamForm = (
 export const getUserGeneratedTeams = (
     state: GeneratedTeamBuilderStoreState,
     userId: TeamOwnerType,
-): GeneratedTeam[] => {
+): GeneratedTeamModel[] => {
     return getUserState(state, userId).teams;
 };
 

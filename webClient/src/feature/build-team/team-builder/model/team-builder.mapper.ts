@@ -1,9 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import type {
-    GeneratedTeam,
-    GeneratedTeamFormState,
-} from './team-builder.types';
+import type { BuildTeamViewModel, GeneratedTeamFormState } from '../../model';
 
 import { getRemainingBudget } from './team-builder-budget.selector';
 
@@ -19,13 +16,16 @@ const calculatePoints = (form: GeneratedTeamFormState) => {
 
 export const mapFormToGeneratedTeam = (
     form: GeneratedTeamFormState,
-): GeneratedTeam => {
+): BuildTeamViewModel => {
     return {
         id: nanoid(),
-        drivers: form.drivers,
-        constructors: form.constructors,
-        calculatedPoints: calculatePoints(form),
-        remainingBudget: getRemainingBudget(form),
-        createdAt: Date.now(),
+        players: {
+            drivers: form.drivers,
+            constructors: form.constructors,
+        },
+        summary: {
+            calculatedPoints: calculatePoints(form),
+            remainingBudget: getRemainingBudget(form),
+        },
     };
 };

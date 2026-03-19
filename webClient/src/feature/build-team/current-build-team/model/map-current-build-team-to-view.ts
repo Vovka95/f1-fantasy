@@ -1,6 +1,7 @@
-import type { FantasyUserTeam } from '@/entities/fantasy-team/api/fantasy-team-response.type';
-import type { BuildTeamViewModel } from '../../build-team-view';
 import type { PlayerPreview } from '@/entities/player';
+import type { FantasyUserTeam } from '@/entities/fantasy-team';
+
+import type { BuildTeamViewModel } from '../../model';
 
 type MapCurrentBuildTeamToViewParams = {
     fantasyTeam: FantasyUserTeam;
@@ -41,9 +42,15 @@ export const mapCurrentBuildTeamToView = ({
     }, 0);
 
     return {
-        drivers,
-        constructors,
-        overallPoints: fantasyTeam.ovpoints,
-        calculatedPoints,
+        id: `${fantasyTeam.socialId}`,
+        players: {
+            drivers,
+            constructors,
+        },
+        summary: {
+            overallPoints: fantasyTeam.ovpoints,
+            calculatedPoints,
+            remainingBudget: fantasyTeam.team_info.teamBal,
+        },
     };
 };

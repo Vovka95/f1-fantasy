@@ -2,7 +2,7 @@ import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
 import type { TeamPlayer } from '@/entities/fantasy-team';
 
-import { BuildTeam } from '../../build-team-view';
+import { BuildTeamPlayersGrid } from '../../ui';
 
 import { useGeneratedTeamBuilderStore } from '../model/team-builder.store';
 import { getUserGeneratedTeamForm } from '../model/team-builder.selectors';
@@ -48,13 +48,17 @@ export const SelectedTeamPreview = ({ userId }: SelectedTeamPreviewProps) => {
 
     return (
         <div className="w-full p-3 rounded-md bg-bg">
-            <BuildTeam
-                drivers={drivers}
-                constructors={constructors}
-                onRemovePlayer={onRemovePlayer}
-                onCaptainChange={onCaptainChange}
-                onEmptySlotClick={setSelectedPositionType}
-                mode="editable"
+            <BuildTeamPlayersGrid
+                players={{ drivers, constructors }}
+                playerActions={{
+                    onRemovePlayer: onRemovePlayer,
+                    onCaptainChange: onCaptainChange,
+                    mode: 'editable',
+                }}
+                emptySlotActions={{
+                    onEmptySlotClick: setSelectedPositionType,
+                    mode: 'editable',
+                }}
             />
         </div>
     );

@@ -1,21 +1,23 @@
 import { PlusIcon } from 'lucide-react';
 
-import type { PlayerPosition } from '@/entities/player';
+import type { PlayerPositionNameType } from '@/entities/player';
 
 import { IconButton } from '@/shared/ui';
+
+import type { BuildTeamEmptySlotActionModel } from '../model';
+
 import { cn } from '@/shared/lib/cn';
 
-type BuildTeamPlayerEmptyCardProps = {
+type BuildTeamPlayerEmptyCardProps = BuildTeamEmptySlotActionModel & {
     title: string;
-    playerPositionType: PlayerPosition;
-    onClick?: (playerPositionType: PlayerPosition) => void;
+    playerPositionType: PlayerPositionNameType;
     className?: string;
 };
 
 export const BuildTeamPlayerEmptyCard = ({
     title,
     playerPositionType,
-    onClick,
+    onEmptySlotClick,
     className,
 }: BuildTeamPlayerEmptyCardProps) => {
     return (
@@ -33,7 +35,7 @@ export const BuildTeamPlayerEmptyCard = ({
             >
                 <IconButton
                     icon={<PlusIcon />}
-                    onClick={() => onClick?.(playerPositionType)}
+                    onClick={() => onEmptySlotClick?.(playerPositionType)}
                     aria-label="Add player"
                     className="bg-card"
                 />

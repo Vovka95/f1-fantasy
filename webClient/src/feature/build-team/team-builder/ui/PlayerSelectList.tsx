@@ -105,6 +105,7 @@ export const PlayerSelectList = ({
                 {table.getRowModel().rows.map((row) => {
                     return (
                         <PlayerSelectFiled
+                            key={row.original.id}
                             player={row.original}
                             onAddPlayer={onAddPlayer}
                             selectedSet={selectedSet}

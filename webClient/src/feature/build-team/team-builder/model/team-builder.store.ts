@@ -1,11 +1,6 @@
 import { create } from 'zustand';
 
-import type { PlayerPosition, PlayerPreview } from '@/entities/player';
-
-import type {
-    GeneratedTeam,
-    GeneratedTeamFormState,
-} from './team-builder.types';
+import type { PlayerPositionNameType, PlayerPreview } from '@/entities/player';
 
 import { validateBuilder } from './team-builder.validation';
 
@@ -19,9 +14,11 @@ import {
     updatePlayers,
 } from './team-builder.store-helpers';
 
+import type { GeneratedTeamFormState, GeneratedTeamModel } from '../../model';
+
 export type UserGeneratedTeamsState = {
     form: GeneratedTeamFormState;
-    teams: GeneratedTeam[];
+    teams: GeneratedTeamModel[];
 };
 
 export type GeneratedTeamBuilderStoreState = {
@@ -48,8 +45,10 @@ export type GeneratedTeamBuilderStoreState = {
     createTeamFromForm: (userId: TeamOwnerType) => void;
     removeTeam: (userId: TeamOwnerType, teamId: string) => void;
 
-    selectedPositionType: PlayerPosition;
-    setSelectedPositionType: (selectedPositionType: PlayerPosition) => void;
+    selectedPositionType: PlayerPositionNameType;
+    setSelectedPositionType: (
+        selectedPositionType: PlayerPositionNameType,
+    ) => void;
 };
 
 export const useGeneratedTeamBuilderStore =
