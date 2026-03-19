@@ -37,6 +37,8 @@ export const mapFantasyTeamToView = ({
 
     const calculatedPoints = calculatePoints([...drivers, ...constructors]);
 
+    const transfersCount = fantasyTeam?.usersubs ?? 0;
+
     return {
         id: `${fantasyTeam.socialId}`,
         players: {
@@ -47,6 +49,7 @@ export const mapFantasyTeamToView = ({
             overallPoints: fantasyTeam.ovpoints,
             calculatedPoints,
             remainingBudget: fantasyTeam.team_info.teamBal,
+            transfersCount,
         },
     };
 };
