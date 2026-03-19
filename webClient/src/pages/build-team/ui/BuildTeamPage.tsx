@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { CurrentBuildTeam } from '@/feature/build-team/current-build-team';
 import { TeamBuilderForm } from '@/feature/build-team/team-builder';
+import { GeneratedBuildTeamList } from '@/feature/build-team/generated-build-team';
 
 import {
     TeamOwnerSwitch,
@@ -29,7 +30,7 @@ export const BuildTeamPage = () => {
 
                         <Divider />
 
-                        <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-auto"></div>
+                        <GeneratedBuildTeamList userId={userId} />
                     </div>
 
                     <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-hidden">

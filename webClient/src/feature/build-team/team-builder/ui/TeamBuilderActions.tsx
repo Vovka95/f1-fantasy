@@ -1,8 +1,11 @@
+import type { TeamOwnerType } from '@/feature/team-owner-switch';
+
 import { Button } from '@/shared/ui';
+
 import { useGeneratedTeamBuilderStore } from '../model/team-builder.store';
 
 type TeamBuilderActionProps = {
-    userId: string;
+    userId: TeamOwnerType;
 };
 
 export const TeamBuilderAction = ({ userId }: TeamBuilderActionProps) => {
@@ -15,7 +18,7 @@ export const TeamBuilderAction = ({ userId }: TeamBuilderActionProps) => {
     return (
         <div className="flex gap-3">
             <Button variant="secondary" onClick={() => resetForm(userId)}>
-                Reaset
+                Reset
             </Button>
             <Button
                 variant="primary"

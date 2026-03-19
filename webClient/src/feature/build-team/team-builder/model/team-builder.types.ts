@@ -10,5 +10,7 @@ export type GeneratedTeam = {
     id: string;
     drivers: TeamPlayer[];
     constructors: TeamPlayer[];
+    calculatedPoints: number;
+    remainingBudget: number;
     createdAt: number;
 };

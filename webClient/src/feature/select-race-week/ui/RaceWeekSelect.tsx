@@ -8,6 +8,7 @@ type RaveWeekSelect = {
 const raceWeekOptions = [
     { value: '1', label: 'Race week 1' },
     { value: '2', label: 'Race week 2' },
+    { value: '3', label: 'Race week 3' },
 ];
 
 export const RaceWeekSelect = ({ value, onChange }: RaveWeekSelect) => {

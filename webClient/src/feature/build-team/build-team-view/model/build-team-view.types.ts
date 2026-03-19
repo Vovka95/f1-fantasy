@@ -12,6 +12,7 @@ export type BuildPlayersModel = {
 export type BuildTeamSummaryModel = {
     overallPoints?: number;
     calculatedPoints: number;
+    remainingBudget?: number;
 };
 
 export type BuildTeamPlayerPreviewCardModel = {

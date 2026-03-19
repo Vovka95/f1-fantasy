@@ -13,6 +13,7 @@ export const BuildTeamView = ({
     constructors,
     overallPoints,
     calculatedPoints,
+    remainingBudget,
     onCaptainChange,
     onRemovePlayer,
     mode,
@@ -29,6 +30,7 @@ export const BuildTeamView = ({
             <BuildTeamSummary
                 overallPoints={overallPoints}
                 calculatedPoints={calculatedPoints}
+                remainingBudget={remainingBudget}
             />
         </div>
     );
