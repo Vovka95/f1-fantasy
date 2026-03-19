@@ -1,24 +1,24 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import {
     flexRender,
     getCoreRowModel,
     getSortedRowModel,
     useReactTable,
-    type SortingState,
     type ColumnDef,
+    type SortingState,
 } from '@tanstack/react-table';
 
 import type { PlayerPreview } from '@/entities/player';
 
-import { PlayerSelectFiled } from './PlayerSelectFiled';
+import { PlayerTableRow } from './PlayerTableRow';
 import { Button } from '@/shared/ui';
 
 import { cn } from '@/shared/lib/cn';
 
-type PlayerSelectListProps = {
+type PlayersTableProps = {
     players: PlayerPreview[];
     onAddPlayer?: (player: PlayerPreview) => void;
-    selectedPlayerIds: string[];
+    selectedPlayersSet: Set<string>;
     remainingBudget: number;
 };
 
@@ -37,20 +37,15 @@ export const columns: ColumnDef<PlayerPreview>[] = [
     },
 ];
 
-export const PlayerSelectList = ({
+export const PlayersTable = ({
     players,
     onAddPlayer,
-    selectedPlayerIds,
+    selectedPlayersSet,
     remainingBudget,
-}: PlayerSelectListProps) => {
+}: PlayersTableProps) => {
     const [sorting, setSorting] = useState<SortingState>([
         { id: 'overallPoints', desc: true },
     ]);
-
-    const selectedSet = useMemo(
-        () => new Set(selectedPlayerIds),
-        [selectedPlayerIds],
-    );
 
     const table = useReactTable({
         data: players,
@@ -104,11 +99,11 @@ export const PlayerSelectList = ({
             <div className="flex-1 overflow-auto">
                 {table.getRowModel().rows.map((row) => {
                     return (
-                        <PlayerSelectFiled
+                        <PlayerTableRow
                             key={row.original.id}
                             player={row.original}
                             onAddPlayer={onAddPlayer}
-                            selectedSet={selectedSet}
+                            selectedPlayersSet={selectedPlayersSet}
                             remainingBudget={remainingBudget}
                         />
                     );

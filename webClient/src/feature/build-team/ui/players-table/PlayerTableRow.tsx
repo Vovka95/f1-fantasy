@@ -6,21 +6,21 @@ import { IconButton } from '@/shared/ui';
 
 import { cn } from '@/shared/lib/cn';
 
-type PlayerSelectFiledProps = {
+type PlayerTableRowProps = {
     player: PlayerPreview;
     onAddPlayer?: (player: PlayerPreview) => void;
-    selectedSet: Set<string>;
+    selectedPlayersSet: Set<string>;
     remainingBudget: number;
 };
 
-export const PlayerSelectFiled = ({
+export const PlayerTableRow = ({
     player,
     onAddPlayer,
-    selectedSet,
+    selectedPlayersSet,
     remainingBudget,
-}: PlayerSelectFiledProps) => {
+}: PlayerTableRowProps) => {
     const isAffordable = player.value <= remainingBudget;
-    const isSelected = selectedSet.has(player.id);
+    const isSelected = selectedPlayersSet.has(player.id);
 
     const gridClass =
         'grid grid-cols-[minmax(0,1fr)_60px_60px_44px] gap-3 items-center lg:grid-cols-[88px_minmax(0,1fr)_70px_70px_70px_52px] md:gap-4';
