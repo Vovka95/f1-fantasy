@@ -18,9 +18,13 @@ export const mapFormStateToView = (
     const players = [...form.drivers, ...form.constructors];
 
     const calculatedPoints = calculatePoints(players);
-    const transfersCount = calculateTransfersCount(userBuildTeam, form);
+
+    const alreadyUsed = fantasyUserTeam?.usersubs ?? 0;
+    const transfersCount =
+        calculateTransfersCount(userBuildTeam, form) + alreadyUsed;
 
     const freeTransfers = fantasyUserTeam?.subsallowed ?? MAX_ALLOWED_TRANSFERS;
+
     const extraTransfers = Math.max(0, transfersCount - freeTransfers);
 
     const penaltyPerTransfer =
