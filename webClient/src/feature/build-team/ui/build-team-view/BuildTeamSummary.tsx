@@ -15,6 +15,7 @@ export const BuildTeamSummary = ({ summary }: BuildTeamSummaryProps) => {
     const {
         overallPoints,
         calculatedPoints,
+        budget,
         remainingBudget,
         transfersCount = 0,
         extraTransfers = 0,
@@ -27,15 +28,23 @@ export const BuildTeamSummary = ({ summary }: BuildTeamSummaryProps) => {
 
     return (
         <div className="flex flex-1 flex-col gap-3">
-            {overallPoints && (
+            {overallPoints && budget && (
                 <div className="flex items-end justify-between bg-card rounded-xl p-4 border border-border">
                     <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground">
-                            Overall
+                        <span className="text-xs text-muted-fg">
+                            Overall Points
                         </span>
 
                         <span className="text-xl font-black leading-none">
                             {overallPoints}
+                        </span>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <span className="text-xs text-muted-fg">Budget</span>
+
+                        <span className="text-xl font-black leading-none">
+                            {budget}M
                         </span>
                     </div>
                 </div>
@@ -63,7 +72,7 @@ export const BuildTeamSummary = ({ summary }: BuildTeamSummaryProps) => {
                     {hasPenalty && <div />}
 
                     {remainingBudget !== undefined && (
-                        <Stat label="Budget" value={`${remainingBudget}M`} />
+                        <Stat label="Balance" value={`${remainingBudget}M`} />
                     )}
 
                     <Stat label="Transfers" value={`${transfersCount}`} />

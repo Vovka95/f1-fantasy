@@ -9,6 +9,7 @@ export type BuildTeamPlayersModel = {
 export type BuildTeamSummaryModel = {
     overallPoints?: number;
     calculatedPoints: number;
+    budget?: number;
     remainingBudget?: number;
     transfersCount?: number;
     extraTransfers?: number;

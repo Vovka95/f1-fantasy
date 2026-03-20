@@ -62,6 +62,7 @@ export const mapFantasyTeamToView = ({
             overallPoints: fantasyTeam.ovpoints,
             calculatedPoints,
             remainingBudget: fantasyTeam.team_info.teamBal,
+            budget: fantasyTeam.team_info.maxTeambal,
             transfersCount,
             extraTransfers,
             pointsWithAdditionalTransfers,
