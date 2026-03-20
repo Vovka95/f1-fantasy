@@ -4,7 +4,7 @@ import type { PlayersEntityType } from '@/feature/players-entity-type-switch';
 import { usePlayersQuery } from '@/entities/player';
 
 export const useStatisticsPage = () => {
-    const [raceWeek, setRaceWeek] = useState(2);
+    const [raceWeek, setRaceWeek] = useState<number | undefined>();
     const [filterBy, setFilterBy] = useState<PlayersEntityType>('DRIVER');
 
     const { data, isLoading, isError } = usePlayersQuery({

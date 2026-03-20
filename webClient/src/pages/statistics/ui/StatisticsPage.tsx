@@ -20,7 +20,7 @@ export const StatisticsPage = () => {
     return (
         <div className="flex flex-col h-full gap-4 overflow-hidden">
             <header className="flex gap-2 justify-between">
-                <RaceWeekSelect value={raceWeek} onChange={setRaceWeek} />
+                <RaceWeekSelect value={raceWeek!} onChange={setRaceWeek} />
 
                 <PlayersEntityTypeSwitch
                     value={filterBy}

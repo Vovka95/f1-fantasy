@@ -16,13 +16,13 @@ const getPlayersList = async (raceWeek: number) => {
 };
 
 type UsePlayersQueryParams = {
-    raceWeek: number;
+    raceWeek?: number;
 };
 
 export const usePlayersQuery = ({ raceWeek }: UsePlayersQueryParams) => {
     return useQuery({
-        queryKey: qk.f1.playersList(raceWeek),
-        queryFn: () => getPlayersList(raceWeek),
+        queryKey: qk.f1.playersList(raceWeek!),
+        queryFn: () => getPlayersList(raceWeek!),
         select: (data) => mapPlayers(data.Data.Value),
         retry: false,
         enabled: Number.isFinite(raceWeek),
