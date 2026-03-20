@@ -7,8 +7,11 @@ import { IconButton } from '@/shared/ui';
 
 import type { BuildTeamPlayerActionModel } from '../../model';
 
+import { cn } from '@/shared/lib/cn';
+
 type BuildTeamPlayerPreviewCardProps = BuildTeamPlayerActionModel & {
     player: TeamPlayer;
+    className?: string;
 };
 
 export const BuildTeamPlayerPreviewCard = ({
@@ -16,17 +19,18 @@ export const BuildTeamPlayerPreviewCard = ({
     onCaptainChange,
     onRemovePlayer,
     mode,
+    className,
 }: BuildTeamPlayerPreviewCardProps) => {
     const isEditable = mode === 'editable' && onCaptainChange;
     const isRemovable = mode === 'editable' && onRemovePlayer;
 
     return (
-        <div className="relative group">
+        <div className={cn('relative group')}>
             <PlayerPreviewCard
                 onClick={isEditable ? () => onCaptainChange(player) : undefined}
                 player={player.preview}
                 info={player.raceInfo}
-                className="max-w-none"
+                className={className}
             />
             {isRemovable && (
                 <IconButton

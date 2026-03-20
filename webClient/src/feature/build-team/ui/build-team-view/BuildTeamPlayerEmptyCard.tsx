@@ -27,18 +27,21 @@ export const BuildTeamPlayerEmptyCard = ({
                 className,
             )}
         >
-            <div
-                className={cn(
-                    'flex aspect-video w-full items-center justify-center',
-                    playerPositionType === 'CONSTRUCTOR' && 'aspect-21/9',
-                )}
-            >
-                <IconButton
-                    icon={<PlusIcon />}
-                    onClick={() => onEmptySlotClick?.(playerPositionType)}
-                    aria-label="Add player"
-                    className="bg-card"
-                />
+            <div className="h-full w-full overflow-hidden">
+                <div
+                    className={cn(
+                        'flex flex-1 h-full w-full items-start justify-center p-5',
+                        'aspect-video',
+                        playerPositionType === 'CONSTRUCTOR' && 'aspect-21/9',
+                    )}
+                >
+                    <IconButton
+                        icon={<PlusIcon />}
+                        onClick={() => onEmptySlotClick?.(playerPositionType)}
+                        aria-label="Add player"
+                        className="bg-card"
+                    />
+                </div>
             </div>
 
             <div className="flex flex-1 flex-col items-center justify-center px-2 py-5 text-zinc-500">

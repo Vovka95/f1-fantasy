@@ -43,7 +43,11 @@ export const PlayerPreviewCard = ({
                 <img
                     src={player.imageUrl ?? ''}
                     alt={player.name}
-                    className="h-full w-full object-cover object-top"
+                    className={cn(
+                        'h-full w-full object-cover object-top',
+                        player.positionName === 'CONSTRUCTOR' &&
+                            'object-center',
+                    )}
                 />
 
                 {!player.isActive && (

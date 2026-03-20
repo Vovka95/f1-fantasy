@@ -41,6 +41,7 @@ export const BuildTeamPlayersGrid = ({
                         onRemovePlayer={playerActions.onRemovePlayer}
                         player={driver}
                         mode={playerActions.mode}
+                        className="max-w-none max-h-32"
                     />
                 ))}
 
@@ -51,7 +52,7 @@ export const BuildTeamPlayersGrid = ({
                         title="Add Driver"
                         playerPositionType="DRIVER"
                         mode={emptySlotActions.mode}
-                        className="max-w-none"
+                        className="max-w-none max-h-32"
                     />
                 ))}
             </div>
@@ -64,6 +65,7 @@ export const BuildTeamPlayersGrid = ({
                         onRemovePlayer={playerActions.onRemovePlayer}
                         player={constructor}
                         mode={playerActions.mode}
+                        className="max-w-none max-h-36"
                     />
                 ))}
 
@@ -74,7 +76,7 @@ export const BuildTeamPlayersGrid = ({
                         title="Add Constructor"
                         playerPositionType="CONSTRUCTOR"
                         mode={emptySlotActions.mode}
-                        className="max-w-none"
+                        className="max-w-none max-h-36"
                     />
                 ))}
             </div>
