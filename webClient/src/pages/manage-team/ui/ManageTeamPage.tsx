@@ -10,7 +10,7 @@ import { useGameDaysQuery } from '@/entities/game-days';
 
 import { FullPageLoader } from '@/shared/ui';
 
-export const BuildTeamPage = () => {
+export const ManageTeamPage = () => {
     const [userId, setUserId] = useState<TeamOwnerType>(volodymyrId);
     const { data, isLoading } = useGameDaysQuery({ userId });
 

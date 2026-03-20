@@ -4,7 +4,7 @@ import { AppLayout } from '@/widgets/app-layout';
 
 import { HealthPage } from '@/pages/health';
 import { StatisticsPage } from '@/pages/statistics';
-import { BuildTeamPage } from '@/pages/build-team';
+import { ManageTeamPage } from '@/pages/manage-team';
 
 export const router = createBrowserRouter([
     {
@@ -20,8 +20,8 @@ export const router = createBrowserRouter([
                 element: <StatisticsPage />,
             },
             {
-                path: 'build-team',
-                element: <BuildTeamPage />,
+                path: 'manage-team',
+                element: <ManageTeamPage />,
             },
             {
                 path: 'health',
