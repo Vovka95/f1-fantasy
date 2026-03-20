@@ -4,7 +4,7 @@ import type { PlayerPositionNameType } from '@/entities/player';
 
 import { IconButton } from '@/shared/ui';
 
-import type { BuildTeamEmptySlotActionModel } from '../model';
+import type { BuildTeamEmptySlotActionModel } from '../../model';
 
 import { cn } from '@/shared/lib/cn';
 
@@ -41,8 +41,12 @@ export const BuildTeamPlayerEmptyCard = ({
                 />
             </div>
 
-            <div className="flex flex-1 items-center justify-center px-2 py-2 text-zinc-500">
-                <span className="text-xs font-semibold">{title}</span>
+            <div className="flex flex-1 flex-col items-center justify-center px-2 py-5 text-zinc-500">
+                <div className="min-w-0">
+                    <div className="truncate text-sm font-semibold pt-2">
+                        {title}
+                    </div>
+                </div>
             </div>
         </div>
     );

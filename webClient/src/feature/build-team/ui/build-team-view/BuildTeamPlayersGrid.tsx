@@ -33,7 +33,7 @@ export const BuildTeamPlayersGrid = ({
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-5 gap-3">
+            <div className="grid grid-cols-5 gap-3 items-stretch">
                 {players.drivers.map((driver) => (
                     <BuildTeamPlayerPreviewCard
                         key={driver.preview.id}
@@ -56,7 +56,7 @@ export const BuildTeamPlayersGrid = ({
                 ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 items-stretch">
                 {players.constructors.map((constructor) => (
                     <BuildTeamPlayerPreviewCard
                         key={constructor.preview.id}

@@ -79,5 +79,3 @@ export const PlayerPreviewCard = ({
         </button>
     );
 };
-
-export default PlayerPreviewCard;

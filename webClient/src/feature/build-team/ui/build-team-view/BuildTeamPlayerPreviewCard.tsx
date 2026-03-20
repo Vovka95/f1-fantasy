@@ -5,7 +5,7 @@ import type { TeamPlayer } from '@/entities/fantasy-team';
 
 import { IconButton } from '@/shared/ui';
 
-import type { BuildTeamPlayerActionModel } from '../model';
+import type { BuildTeamPlayerActionModel } from '../../model';
 
 type BuildTeamPlayerPreviewCardProps = BuildTeamPlayerActionModel & {
     player: TeamPlayer;
