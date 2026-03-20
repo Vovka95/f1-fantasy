@@ -42,8 +42,8 @@ export const useFantasyTeamHistoryQuery = ({
 
     return {
         data,
-        isLoading: queries.some((query) => query.isLoading),
-        isFetching: queries.some((query) => query.isFetching),
+        isLoading: isEnabled && queries.some((query) => query.isLoading),
+        isFetching: isEnabled && queries.some((query) => query.isFetching),
         isError: queries.some((query) => query.isError),
         queries,
     };
