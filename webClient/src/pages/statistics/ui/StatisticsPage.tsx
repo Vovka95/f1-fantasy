@@ -1,4 +1,4 @@
-import { RaceWeekSelect } from '@/feature/select-race-week';
+import { RaceWeekSelect } from '@/entities/game-days';
 import { PlayersEntityTypeSwitch } from '@/feature/players-entity-type-switch';
 
 import { ConstructorsListTable } from '@/widgets/constructors-list-table';
