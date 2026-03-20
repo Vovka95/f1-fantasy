@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { F1FantasyDriversInput, F1FantasyUserTeamInput } from '../domain/types';
+import {
+    F1FantasyDriversInput,
+    F1FantasyUserGameDaysInput,
+    F1FantasyUserTeamInput,
+} from '../domain/types';
 import { F1FantasyApiClient } from './f1-fantasy-api.client';
 
 @Injectable()
@@ -31,10 +35,10 @@ export class F1FantasyClient {
         return this.f1FantasyApiClient.getPrivate(url);
     }
 
-    async getUserGameDays(input: F1FantasyUserTeamInput) {
-        const { userId, raceWeek } = input;
+    async getUserGameDays(input: F1FantasyUserGameDaysInput) {
+        const { userId } = input;
 
-        const url = `${this.fantasyBaseUrl}/services/user/gameplay/${userId}/getteam/1/1/${raceWeek}/1`;
+        const url = `${this.fantasyBaseUrl}/services/user/gameplay/${userId}/getusergamedaysv1/1`;
 
         return this.f1FantasyApiClient.getPrivate(url);
     }

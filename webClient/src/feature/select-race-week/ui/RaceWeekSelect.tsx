@@ -1,25 +1,43 @@
+import { useGameDaysQuery } from '@/entities/game-days';
+import { volodymyrId } from '@/feature/team-owner-switch';
 import { Select } from '@/shared/ui';
+import { useEffect, useMemo } from 'react';
 
 type RaveWeekSelect = {
     value: number;
     onChange: (v: number) => void;
 };
 
-const raceWeekOptions = [
-    { value: '1', label: 'Race week 1' },
-    { value: '2', label: 'Race week 2' },
-    { value: '3', label: 'Race week 3' },
-];
-
 export const RaceWeekSelect = ({ value, onChange }: RaveWeekSelect) => {
+    const gameDaysQuery = useGameDaysQuery({ userId: volodymyrId });
+
+    const raceWeekSeries = gameDaysQuery.data?.raceWeeks.raceWeekSeries;
+    const activeRaceWeekId = gameDaysQuery.data?.raceWeeks.activeRaceWeekId;
+
+    const raceWeekOptions = useMemo(() => {
+        return raceWeekSeries?.map((rw) => ({
+            value: `${rw.raceWeekId}`,
+            label: `Race week ${rw.raceWeekId}`,
+        }));
+    }, [raceWeekSeries]);
+
+    useEffect(() => {
+        activeRaceWeekId && onChange(activeRaceWeekId);
+    }, [activeRaceWeekId]);
+
+    const isLoading = gameDaysQuery.isLoading || !raceWeekOptions;
+
     return (
         <div className="w-auto">
-            <Select
-                value={String(value)}
-                onValueChange={(nextValue) => onChange(Number(nextValue))}
-                options={raceWeekOptions}
-                placeholder="Choose race week"
-            />
+            {!isLoading && (
+                <Select
+                    value={String(value)}
+                    onValueChange={(nextValue) => onChange(Number(nextValue))}
+                    options={raceWeekOptions}
+                    placeholder="Choose race week"
+                    disabled={isLoading}
+                />
+            )}
         </div>
     );
 };

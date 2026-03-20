@@ -36,6 +36,11 @@ export class F1FantasyController {
         });
     }
 
+    @Get('game-days')
+    async getUserGameDays(@Query('userId') userId: string) {
+        return this.f1FantasyService.getUserGameDays({ userId });
+    }
+
     @Get('me')
     async getMe() {
         return this.f1FantasyService.getMe({
