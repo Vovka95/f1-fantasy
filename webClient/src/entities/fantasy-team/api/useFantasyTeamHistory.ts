@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { useQueries } from '@tanstack/react-query';
 
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
+
+import type { FantasyTeamHistoryItem } from '../model/fantasy-team-history-item.type';
 import { getFantasyTeamQueryOptions } from './fantasy-team-query-options';
 
 type UseFantasyTeamHistoryQueryParams = {
@@ -27,7 +29,7 @@ export const useFantasyTeamHistoryQuery = ({
         })),
     });
 
-    const data = useMemo(() => {
+    const data: FantasyTeamHistoryItem[] = useMemo(() => {
         return queries.flatMap((query, index) => {
             if (!query.data) return [];
 
