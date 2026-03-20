@@ -33,14 +33,5 @@ export const mapFantasyTeamsHistoryToTotalRankChartData = (
         };
     });
 
-    return [
-        {
-            raceWeek: 0,
-            team1Points: 0,
-            team2Points: 0,
-        },
-        ...data,
-    ];
-
     return data;
 };

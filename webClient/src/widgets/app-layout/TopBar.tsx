@@ -1,6 +1,7 @@
 import { ConnectF1SessionDialog } from '@/feature/f1-session/ui/connect-f1-session-dialog';
 import { ConnectF1SessionStatus } from '@/feature/f1-session/ui/connect-f1-session-status';
 import { Navigation } from './Navigation';
+import { Divider } from '@/shared/ui';
 
 export const TopBar = () => {
     return (
@@ -12,7 +13,9 @@ export const TopBar = () => {
                     <Navigation />
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="h-full flex items-center gap-3">
+                    <Divider orientation="vertical" />
+
                     <ConnectF1SessionStatus />
 
                     <ConnectF1SessionDialog />
