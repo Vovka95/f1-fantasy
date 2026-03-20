@@ -31,8 +31,8 @@ export const BuildTeam = ({ userId, raceWeek }: BuildTeamProps) => {
     }
 
     return (
-        <div className="flex gap-10 h-full min-h-0 overflow-hidden">
-            <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-hidden">
+        <div className="grid h-full min-h-0 overflow-hidden gap-6 grid-cols-[60fr_40fr] 2xl:grid-cols-2">
+            <div className="flex flex-col gap-2 min-h-0 w-full overflow-hidden">
                 <CurrentBuildTeam userId={userId} />
 
                 <Divider />
@@ -40,7 +40,7 @@ export const BuildTeam = ({ userId, raceWeek }: BuildTeamProps) => {
                 <GeneratedBuildTeamList userId={userId} />
             </div>
 
-            <div className="flex flex-1 flex-col gap-2 min-h-0 overflow-hidden">
+            <div className="flex flex-col gap-2 min-h-0 w-full overflow-hidden">
                 <TeamBuilderForm
                     userId={userId}
                     fantasyUserTeam={fantasyTeamQuery.data}

@@ -42,7 +42,7 @@ export const TeamBuilderForm = ({
     }, [userId, setFantasyUserTeam]);
 
     return (
-        <div className="flex min-h-0 bg-card p-3 gap-2 rounded-md flex-col items-center">
+        <div className="flex flex-1 min-h-0 bg-card p-3 gap-2 rounded-md flex-col items-center">
             <SelectedTeamPreview userId={userId} />
 
             <TeamBuilderAction userId={userId} />
