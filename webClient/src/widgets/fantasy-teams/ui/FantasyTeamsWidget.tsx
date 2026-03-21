@@ -5,9 +5,13 @@ import {
 
 type FantasyTeamsWidgetProps = {
     teamViews: FantasyTeamViewModel[];
+    type?: 'overall' | 'grandprix';
 };
 
-export const FantasyTeamsWidget = ({ teamViews }: FantasyTeamsWidgetProps) => {
+export const FantasyTeamsWidget = ({
+    teamViews,
+    type = 'overall',
+}: FantasyTeamsWidgetProps) => {
     return (
         <div className="flex gap-4">
             {teamViews.map((team) => (
@@ -16,6 +20,7 @@ export const FantasyTeamsWidget = ({ teamViews }: FantasyTeamsWidgetProps) => {
                     id={team.id}
                     players={team.players}
                     summary={team.summary}
+                    type={type}
                 />
             ))}
         </div>
