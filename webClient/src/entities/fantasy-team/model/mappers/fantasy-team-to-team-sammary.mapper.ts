@@ -12,7 +12,8 @@ export const mapFantasyTeamSummaryView = (
     const extraTransfers = Math.max(0, transfersCount - freeTransfers);
 
     return {
-        overallPoints: fantasyTeam.ovpoints,
+        overallPoints: fantasyTeam.ovpoints ?? 0,
+        grandPrixPoints: fantasyTeam.gdpoints ?? 0,
         remainingBudget: fantasyTeam.team_info.teamBal,
         budget: fantasyTeam.team_info.maxTeambal,
         transfersCount,

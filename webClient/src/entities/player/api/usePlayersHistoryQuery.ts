@@ -19,7 +19,10 @@ export const usePlayersHistoryQuery = ({
     const queries = useQueries({
         queries: safeRaceWeeks.map((raceWeek) => ({
             ...getPlayersQueryOptions(raceWeek),
-            enabled: isEnabled && Number.isFinite(raceWeek),
+            enabled:
+                safeRaceWeeks.length > 0 &&
+                isEnabled &&
+                Number.isFinite(raceWeek),
         })),
     });
 

@@ -9,11 +9,16 @@ import { cn } from '@/shared/lib/cn';
 
 type FantasyTeamSummaryProps = {
     summary: FantasyTeamSummaryModel;
+    type?: 'overall' | 'grandprix';
 };
 
-export const FantasyTeamSummary = ({ summary }: FantasyTeamSummaryProps) => {
+export const FantasyTeamSummary = ({
+    summary,
+    type = 'overall',
+}: FantasyTeamSummaryProps) => {
     const {
         overallPoints,
+        grandPrixPoints,
         budget,
         remainingBudget,
         transfersCount = 0,
@@ -28,11 +33,15 @@ export const FantasyTeamSummary = ({ summary }: FantasyTeamSummaryProps) => {
                 <div className="flex items-end justify-between bg-card rounded-xl p-4 border border-border">
                     <div className="flex flex-col">
                         <span className="text-xs text-muted-fg">
-                            Overall Points
+                            {type === 'grandprix'
+                                ? 'Grand Prix'
+                                : 'Overall Points'}
                         </span>
 
                         <span className="text-xl font-black leading-none">
-                            {overallPoints}
+                            {type === 'grandprix'
+                                ? grandPrixPoints
+                                : overallPoints}
                         </span>
                     </div>
 
