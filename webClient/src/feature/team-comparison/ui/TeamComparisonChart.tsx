@@ -66,7 +66,7 @@ export const TeamComparisonChart = ({
     rightTeamName,
     mode,
 }: TeamComparisonChartProps) => {
-    const lineType = mode === 'totalPoints' ? 'monotone' : 'stepBefore';
+    const lineType = 'monotone';
 
     return (
         <div className="w-full h-90 flex flex-col gap-4 rounded-xl border border-border bg-card p-4">
