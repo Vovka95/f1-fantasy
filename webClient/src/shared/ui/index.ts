@@ -9,3 +9,4 @@ export * from './FullPageLoader';
 export * from './SegmentedControl';
 export * from './Divider';
 export * from './Slat';
+export * from './AccordionItem';
