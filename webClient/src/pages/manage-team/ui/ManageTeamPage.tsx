@@ -6,15 +6,15 @@ import {
     type TeamOwnerType,
 } from '@/feature/team-owner-switch';
 import { BuildTeam } from '@/feature/build-team';
-import { useGameDaysQuery } from '@/entities/game-days';
+import { useActiveRaceWeek } from '@/entities/game-days';
 
 import { FullPageLoader } from '@/shared/ui';
 
 export const ManageTeamPage = () => {
     const [userId, setUserId] = useState<TeamOwnerType>(volodymyrId);
-    const { data, isLoading } = useGameDaysQuery({ userId });
+    const { activeRaceWeekId, isLoading } = useActiveRaceWeek();
 
-    if (!data || isLoading) {
+    if (isLoading || !activeRaceWeekId) {
         return <FullPageLoader />;
     }
 
@@ -25,10 +25,7 @@ export const ManageTeamPage = () => {
             </header>
 
             <section className="flex-1 min-h-0">
-                <BuildTeam
-                    userId={userId}
-                    raceWeek={data.raceWeeks.activeRaceWeekId}
-                />
+                <BuildTeam userId={userId} raceWeek={activeRaceWeekId} />
             </section>
         </div>
     );

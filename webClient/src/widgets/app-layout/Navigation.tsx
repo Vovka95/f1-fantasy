@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { cn } from '@/shared/lib/cn';
 
 const items = [
+    { label: 'Home', to: '/home' },
     { label: 'Manage Team', to: '/manage-team' },
     { label: 'Team Performance', to: '/team-performance' },
     { label: 'Statistics', to: '/statistics' },

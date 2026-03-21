@@ -4,8 +4,8 @@ import type { TeamOwnerType } from '@/feature/team-owner-switch';
 import { getFantasyTeamQueryOptions } from './fantasy-team-query-options';
 
 type UseFantasyTeamQueryParams = {
-    userId: TeamOwnerType;
-    raceWeek: number;
+    userId?: TeamOwnerType;
+    raceWeek?: number;
 };
 
 export const useFantasyTeamQuery = ({

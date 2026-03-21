@@ -6,11 +6,11 @@ import type { TeamOwnerType } from '@/feature/team-owner-switch';
 import { qk } from '@/app/config/queryKey';
 
 export const getFantasyTeamQueryOptions = (
-    userId: TeamOwnerType,
-    raceWeek: number,
+    userId?: TeamOwnerType,
+    raceWeek?: number,
 ) => ({
-    queryKey: qk.f1.fantasyTeam(userId, raceWeek),
-    queryFn: () => getFantasyTeam(userId, raceWeek),
+    queryKey: qk.f1.fantasyTeam(userId!, raceWeek!),
+    queryFn: () => getFantasyTeam(userId!, raceWeek!),
     select: (data: Awaited<ReturnType<typeof getFantasyTeam>>) =>
         mapFantasyTeam(data.Data.Value.userTeam[0]),
     retry: false,
