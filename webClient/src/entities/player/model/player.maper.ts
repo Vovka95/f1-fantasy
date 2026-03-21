@@ -2,12 +2,13 @@ import type {
     PlayerPositionNameType,
     PlayerResponse,
 } from '../api/players-list-response.types';
-import type { Player, PlayerPreview } from './player.type';
+import type { Player, PlayerPreview } from './types/player.type';
 
 import {
     getConstructorImageRightUrl,
     getDriverFrontImageUrl,
 } from './player.assets';
+import type { PlayersListView } from './types/players-list-view.type';
 
 export const mapPlayer = (asset: PlayerResponse): Player => {
     return {
@@ -47,11 +48,6 @@ const mapPlayerToPreview = (asset: PlayerResponse): PlayerPreview => {
         isActive: asset.IsActive === '1',
         status: asset.Status,
     };
-};
-
-type PlayersListView = {
-    table: Player[];
-    preview: PlayerPreview[];
 };
 
 export const mapPlayers = (assets: PlayerResponse[]): PlayersListView => {

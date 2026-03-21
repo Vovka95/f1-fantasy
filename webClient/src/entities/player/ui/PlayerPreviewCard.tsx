@@ -1,5 +1,6 @@
 import type { FantasyTeamPlayer } from '@/entities/fantasy-team/api/fantasy-team-response.type';
-import type { PlayerPreview } from '../model/player.type';
+import type { PlayerPreview } from '../model';
+
 import { cn } from '@/shared/lib/cn';
 
 type PlayerPreviewCardProps = {

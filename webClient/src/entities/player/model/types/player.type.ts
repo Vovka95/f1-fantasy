@@ -1,4 +1,4 @@
-import type { PlayerPositionNameType } from '../api/players-list-response.types';
+import type { PlayerPositionNameType } from '../../api/players-list-response.types';
 
 export type Player = {
     id: string;
