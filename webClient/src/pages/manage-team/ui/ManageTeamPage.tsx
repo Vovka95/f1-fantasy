@@ -5,8 +5,9 @@ import {
     volodymyrId,
     type TeamOwnerType,
 } from '@/feature/team-owner-switch';
-import { BuildTeam } from '@/feature/build-team';
 import { useActiveRaceWeek } from '@/entities/game-days';
+
+import { ManageTeamWidget } from '@/widgets/manage-team';
 
 import { FullPageLoader } from '@/shared/ui';
 
@@ -19,14 +20,19 @@ export const ManageTeamPage = () => {
     }
 
     return (
-        <div className="flex flex-col h-full gap-4 overflow-hidden">
-            <header className="flex gap-2 justify-end">
-                <TeamOwnerSwitch value={userId} onValueChange={setUserId} />
-            </header>
+        <div className="flex w-full h-full justify-center">
+            <div className="flex flex-col w-full h-full max-w-400 gap-4 overflow-hidden">
+                <header className="flex gap-2 w-full justify-end">
+                    <TeamOwnerSwitch value={userId} onValueChange={setUserId} />
+                </header>
 
-            <section className="flex-1 min-h-0">
-                <BuildTeam userId={userId} raceWeek={activeRaceWeekId} />
-            </section>
+                <section className="flex-1 min-h-0">
+                    <ManageTeamWidget
+                        userId={userId}
+                        raceWeek={activeRaceWeekId}
+                    />
+                </section>
+            </div>
         </div>
     );
 };

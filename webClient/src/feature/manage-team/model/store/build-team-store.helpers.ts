@@ -1,7 +1,7 @@
 import type { FantasyTeamPlayer, TeamPlayer } from '@/entities/fantasy-team';
 import type { PlayerPreview } from '@/entities/player';
 
-import { type UserGeneratedTeamsState } from '../../model';
+import { type UserGeneratedTeamsState } from '..';
 
 import type { GeneratedTeamBuilderStoreState } from './build-team.store';
 

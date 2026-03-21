@@ -13,8 +13,8 @@ export const HomePage = () => {
     }
 
     return (
-        <div className="flex flex-col gap-4 w-full items-center">
-            <div className="w-full max-w-400 gap-4">
+        <div className="flex gap-4 w-full justify-center">
+            <div className="flex flex-col w-full max-w-400 gap-4">
                 <ActiveRaceWeekWidget activeRaceWeekId={activeRaceWeekId!} />
                 <FantasyTeamsWidget teamViews={teamViews} />
             </div>
