@@ -10,8 +10,6 @@ export const mapFantasyTeamHistoryToView = (
     fantasyTeamHistory: FantasyTeamHistoryItem[],
     playersHistoryList: PlayersHistoryItem[],
 ): FantasyTeamHistoryViewModel[] => {
-    console.log('playersHistoryList', playersHistoryList);
-
     const raceWeeks = Array.from(
         new Set([
             ...fantasyTeamHistory.map((item) => item.raceWeek),

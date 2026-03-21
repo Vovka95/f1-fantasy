@@ -14,8 +14,6 @@ export const useF1SessionStatusQuery = () => {
             useF1SessionStore.getState().setExpired(!data.isValid);
             useF1SessionStore.getState().setConfigured(!!data);
 
-            console.log('session status', data);
-
             return data;
         },
         retry: false,
