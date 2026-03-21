@@ -1,25 +1,26 @@
 import { useState } from 'react';
 
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
+import {
+    TeamComparisonChart,
+    TeamComparisonModeSwitch,
+    useFantasyTeamsComparisonChart,
+    type TeamComparisonChartMode,
+} from '@/feature/team-comparison';
 
-import { useFantasyTeamsComparisonChart } from '../model/useFantasyTeamComparisonChart';
-
-import { TeamComparisonChart } from '../ui/TeamComparisonChart';
 import { FullPageLoader } from '@/shared/ui';
-import type { TeamComparisonChartMode } from '../model/team-comparison.types';
-import { TeamComparisonModeSwitch } from '../ui/TeamComparisonModeSwitch';
 
-type TeamComparisonProps = {
+type TeamComparisonWidgetProps = {
     leftUserId: TeamOwnerType;
     rightUserId: TeamOwnerType;
     raceWeeks: number[];
 };
 
-export const TeamComparison = ({
+export const TeamComparisonWidget = ({
     leftUserId,
     rightUserId,
     raceWeeks,
-}: TeamComparisonProps) => {
+}: TeamComparisonWidgetProps) => {
     const [mode, setMode] = useState<TeamComparisonChartMode>('totalPoints');
 
     const { data, leftTeamName, rightTeamName, isLoading, isError } =

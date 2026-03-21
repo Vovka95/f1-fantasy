@@ -1,6 +1,7 @@
 import { useGameDaysQuery } from '@/entities/game-days';
-import { TeamComparison } from '@/feature/team-comparison';
 import { khrystynaId, volodymyrId } from '@/feature/team-owner-switch';
+
+import { TeamComparisonWidget } from '@/widgets/team-comparison';
 
 import { FullPageLoader } from '@/shared/ui';
 
@@ -16,12 +17,14 @@ export const TeamPerformance = () => {
         .map((rw) => rw.raceWeekId);
 
     return (
-        <div className="flex flex-col gap-3">
-            <TeamComparison
-                leftUserId={volodymyrId}
-                rightUserId={khrystynaId}
-                raceWeeks={completedRaceWeeksIds}
-            />
+        <div className="flex gap-4 w-full justify-center">
+            <div className="flex flex-col w-full max-w-400 gap-4">
+                <TeamComparisonWidget
+                    leftUserId={volodymyrId}
+                    rightUserId={khrystynaId}
+                    raceWeeks={completedRaceWeeksIds}
+                />
+            </div>
         </div>
     );
 };
