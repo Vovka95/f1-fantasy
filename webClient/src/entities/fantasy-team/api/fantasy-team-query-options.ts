@@ -1,4 +1,4 @@
-import { mapFantasyTeam } from '../model/fantasy-team.mapper';
+import { mapFantasyTeam } from '../model/mappers';
 import { getFantasyTeam } from './fantasy-team.api';
 
 import type { TeamOwnerType } from '@/feature/team-owner-switch';

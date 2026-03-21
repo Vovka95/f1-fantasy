@@ -3,7 +3,7 @@ import { useQueries } from '@tanstack/react-query';
 
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
-import type { FantasyTeamHistoryItem } from '../model/fantasy-team-history-item.type';
+import type { FantasyTeamHistoryItem } from '../model/types/fantasy-team-history-item.type';
 import { getFantasyTeamQueryOptions } from './fantasy-team-query-options';
 
 type UseFantasyTeamHistoryQueryParams = {

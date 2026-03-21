@@ -1,4 +1,4 @@
-import type { FantasyUserTeam } from '../api/fantasy-team-response.type';
+import type { FantasyUserTeam } from '../../api/fantasy-team-response.type';
 
 export type FantasyTeamHistoryItem = {
     raceWeek: number;

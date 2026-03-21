@@ -1,0 +1,2 @@
+export const PENALTY_FOR_EXTRA_TRANSFER = 10;
+export const MAX_ALLOWED_TRANSFERS = 2;

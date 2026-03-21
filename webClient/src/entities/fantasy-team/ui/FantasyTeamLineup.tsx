@@ -1,22 +1,20 @@
 import { PlayerPreviewCard } from '@/entities/player';
 
-import type { TeamPlayer } from '../model/fantasy-team-player.types';
+import type { FantasyTeamLineupModel } from '../model';
 
-type FantasyTeamProps = {
-    drivers: TeamPlayer[];
-    constructors: TeamPlayer[];
+type FantasyTeamLineupProps = {
+    players: FantasyTeamLineupModel;
     onClick?: (playerId: string) => void;
 };
 
-export const FantasyTeam = ({
-    drivers,
-    constructors,
+export const FantasyTeamLineup = ({
+    players,
     onClick,
-}: FantasyTeamProps) => {
+}: FantasyTeamLineupProps) => {
     return (
         <div className="flex flex-col gap-4">
             <div className="grid grid-cols-5 gap-3">
-                {drivers.map((driver) => (
+                {players.drivers.map((driver) => (
                     <PlayerPreviewCard
                         onClick={() => onClick && onClick(driver.preview.id)}
                         key={driver.preview.id}
@@ -28,7 +26,7 @@ export const FantasyTeam = ({
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-                {constructors.map((constructor) => (
+                {players.constructors.map((constructor) => (
                     <PlayerPreviewCard
                         onClick={() =>
                             onClick && onClick(constructor.preview.id)
