@@ -43,29 +43,21 @@ export const useFantasyTeamsByRaceWeek = ({
         !leftTeamHistory.data ||
         !playersHistory.data;
 
-    const leftTeamData = useMemo(() => {
-        if (!leftTeamHistory.data || !playersHistory.data || isLoading) {
+    const teamViewsList = useMemo(() => {
+        if (isLoading) {
             return [];
         }
 
-        return mapFantasyTeamHistoryToView(
+        const leftTeamData = mapFantasyTeamHistoryToView(
             leftTeamHistory.data,
             playersHistory.data,
         );
-    }, [leftTeamHistory.data, playersHistory.data, isLoading]);
 
-    const rightTeamData = useMemo(() => {
-        if (!rightTeamHistory.data || !playersHistory.data || isLoading) {
-            return [];
-        }
-
-        return mapFantasyTeamHistoryToView(
+        const rightTeamData = mapFantasyTeamHistoryToView(
             rightTeamHistory.data,
             playersHistory.data,
         );
-    }, [rightTeamHistory.data, playersHistory.data, isLoading]);
 
-    const teamViewsList = useMemo(() => {
         return [...raceWeeks].reverse().map((raceWeekId) => {
             const leftTeam = leftTeamData.find(
                 (team) => team.raceWeek === raceWeekId,
@@ -84,7 +76,13 @@ export const useFantasyTeamsByRaceWeek = ({
                 raceWeekInfo,
             };
         });
-    }, [leftTeamData, rightTeamData, f1ScheduleQuery.data]);
+    }, [
+        f1ScheduleQuery.data,
+        rightTeamHistory.data,
+        leftTeamHistory.data,
+        playersHistory.data,
+        isLoading,
+    ]);
 
     return {
         data: teamViewsList,
