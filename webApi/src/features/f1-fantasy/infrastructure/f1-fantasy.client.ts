@@ -21,6 +21,7 @@ export class F1FantasyClient {
         return this.f1FantasyApiClient.getPrivate(url);
     }
 
+    // TODO: use it on frontend
     async getPlayerStats(playerId: string) {
         const url = `${this.fantasyBaseUrl}/feeds/popup/playerstats_${playerId}.json`;
 
@@ -45,6 +46,12 @@ export class F1FantasyClient {
 
     async getSchedule(lang: string) {
         const url = `${this.fantasyBaseUrl}/feeds/v2/schedule/raceday_${lang}.json`;
+
+        return this.f1FantasyApiClient.getPrivate(url);
+    }
+
+    async getLeaderboard(leagueId: string) {
+        const url = `${this.fantasyBaseUrl}/feeds/leaderboard/privateleague/list_1_${leagueId}_0_1.json`;
 
         return this.f1FantasyApiClient.getPrivate(url);
     }

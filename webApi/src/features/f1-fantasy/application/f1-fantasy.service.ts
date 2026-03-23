@@ -35,4 +35,8 @@ export class F1FantasyService {
     async getSchedule(lang: string) {
         return this.f1FantasyClient.getSchedule(lang);
     }
+
+    async getLeaderboard(leagueId: string) {
+        return this.f1FantasyClient.getLeaderboard(leagueId);
+    }
 }

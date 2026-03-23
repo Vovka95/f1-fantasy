@@ -48,6 +48,11 @@ export class F1FantasyController {
         return this.f1FantasyService.getSchedule(lang);
     }
 
+    @Get('leaderboard')
+    async getLeaderboard(@Query('leagueId') leagueId: string) {
+        return this.f1FantasyService.getLeaderboard(leagueId);
+    }
+
     @Get('me')
     async getMe() {
         return this.f1FantasyService.getMe({
