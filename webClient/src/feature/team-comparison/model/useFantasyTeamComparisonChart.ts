@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { useFantasyTeamHistoryQuery } from '@/entities/fantasy-team';
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
+import { useF1ScheduleQuery } from '@/entities/schedule';
 
 import type { TeamComparisonChartMode } from './team-comparison.types';
 import { mapFantasyTeamsHistoryToChartData } from './mappers';
@@ -29,19 +30,35 @@ export const useFantasyTeamsComparisonChart = ({
         raceWeeks,
     });
 
+    const scheduleQuery = useF1ScheduleQuery();
+
     const data = useMemo(() => {
+        if (!leftHistory.data || !rightHistory.data || !scheduleQuery.data) {
+            return [];
+        }
+
         return mapFantasyTeamsHistoryToChartData({
             leftTeamHistory: leftHistory.data,
             rightTeamHistory: rightHistory.data,
+            scheduleData: scheduleQuery.data,
             mode,
         });
-    }, [leftHistory.data, rightHistory.data, mode]);
+    }, [leftHistory.data, rightHistory.data, scheduleQuery.data, mode]);
 
     return {
         data,
-        isLoading: leftHistory.isLoading || rightHistory.isLoading,
-        isFetching: leftHistory.isFetching || rightHistory.isFetching,
-        isError: leftHistory.isError || rightHistory.isError,
+        isLoading:
+            leftHistory.isLoading ||
+            rightHistory.isLoading ||
+            scheduleQuery.isLoading,
+        isFetching:
+            leftHistory.isFetching ||
+            rightHistory.isFetching ||
+            scheduleQuery.isFetching,
+        isError:
+            leftHistory.isError ||
+            rightHistory.isError ||
+            scheduleQuery.isError,
         leftHistory,
         rightHistory,
         leftTeamName: decodeURIComponent(leftHistory.data[0]?.team.teamname),

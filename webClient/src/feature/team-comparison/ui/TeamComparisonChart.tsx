@@ -14,6 +14,8 @@ import type {
     TeamComparisonChartPoint,
 } from '../model/team-comparison.types';
 import { TEAM_COMPARISON_CHART_MODE_LABELS } from '../model/team-comparison.constants';
+import { RaceWeekTick } from './RaceWeekTick';
+import { useMemo } from 'react';
 
 const TEAM_COLORS = {
     team1: '#FFAC1C',
@@ -68,6 +70,10 @@ export const TeamComparisonChart = ({
 }: TeamComparisonChartProps) => {
     const lineType = 'monotone';
 
+    const raceWeekMap = useMemo(() => {
+        return new Map(data.map((item) => [item.raceWeek, item]));
+    }, [data]);
+
     return (
         <div className="w-full h-90 flex flex-col gap-4 rounded-xl border border-border bg-card p-4">
             <div className="mb-4">
@@ -77,13 +83,18 @@ export const TeamComparisonChart = ({
             </div>
 
             <ResponsiveContainer className="flex-1">
-                <LineChart data={data}>
+                <LineChart data={data} margin={{ right: 10, left: 10 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="raceWeek"
-                        tickFormatter={(value) =>
-                            value === 0 ? '' : `RW ${value}`
-                        }
+                        interval={0}
+                        height={42}
+                        tick={(props) => (
+                            <RaceWeekTick
+                                {...props}
+                                raceWeekMap={raceWeekMap}
+                            />
+                        )}
                     />
                     <YAxis {...chartConfig[mode].yAxis} />
                     <Tooltip
