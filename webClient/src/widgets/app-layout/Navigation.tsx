@@ -6,6 +6,7 @@ const items = [
     { label: 'Home', to: '/home' },
     { label: 'Manage Team', to: '/manage-team' },
     { label: 'Team Performance', to: '/team-performance' },
+    { label: 'Leaderboard', to: 'leaderboard' },
     { label: 'Statistics', to: '/statistics' },
 ];
 

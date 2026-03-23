@@ -3,10 +3,11 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { AppLayout } from '@/widgets/app-layout';
 
 import { HealthPage } from '@/pages/health';
-import { StatisticsPage } from '@/pages/statistics';
+import { HomePage } from '@/pages/home';
 import { ManageTeamPage } from '@/pages/manage-team';
 import { TeamPerformance } from '@/pages/team-performance';
-import { HomePage } from '@/pages/home/ui/HomePage';
+import { LeaderboardPage } from '@/pages/leaderboard';
+import { StatisticsPage } from '@/pages/statistics';
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: 'team-performance',
                 element: <TeamPerformance />,
+            },
+            {
+                path: 'leaderboard',
+                element: <LeaderboardPage />,
             },
             {
                 path: 'statistics',
