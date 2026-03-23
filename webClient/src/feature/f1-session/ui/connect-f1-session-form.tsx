@@ -35,7 +35,6 @@ export const ConnectF1SessionForm = ({
             f1Fantasy007: '',
             loginSession: '',
             reese84: '',
-            minUnifiedSessionToken10: '',
         },
     });
 
@@ -99,20 +98,6 @@ export const ConnectF1SessionForm = ({
                     type="text"
                     {...register('reese84')}
                     hasError={!!errors.reese84}
-                />
-            </FormField>
-
-            <FormField
-                label={'MinUnifiedSessionToken10'}
-                htmlFor="minUnifiedSessionToken10"
-                required
-                error={errors.minUnifiedSessionToken10}
-            >
-                <Input
-                    id="minUnifiedSessionToken10"
-                    type="text"
-                    {...register('minUnifiedSessionToken10')}
-                    hasError={!!errors.minUnifiedSessionToken10}
                 />
             </FormField>
 

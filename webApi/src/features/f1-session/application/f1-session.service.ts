@@ -24,7 +24,6 @@ export class F1SessionService {
             `F1_FANTASY_007=${dto.f1Fantasy007}`,
             `login-session=${dto.loginSession}`,
             `reese84=${dto.reese84}`,
-            `minUnifiedSessionToken10=${dto.minUnifiedSessionToken10}`,
         ].join('; ');
 
         let session = await this.repo.findOne({ where: { id: 1 } });

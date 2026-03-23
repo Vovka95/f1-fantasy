@@ -12,8 +12,4 @@ export class ConnectF1SessionDto {
     @IsNotEmpty()
     @IsString()
     reese84: string;
-
-    @IsNotEmpty()
-    @IsString()
-    minUnifiedSessionToken10: string;
 }
