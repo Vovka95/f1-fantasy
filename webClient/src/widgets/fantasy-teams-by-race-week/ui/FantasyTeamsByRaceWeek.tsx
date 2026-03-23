@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
 import { AccordionItem, FullPageLoader } from '@/shared/ui';
-
-import { FantasyTeamsWidget } from '@/widgets/fantasy-teams/ui/FantasyTeamsWidget';
-import { useFantasyTeamsByRaceWeek } from '../model/useFantasyTeamsByRaceWeek';
 import { useAccordion } from '@/shared/lib/hooks/useAccordion';
+
+import { FantasyTeamsWidget } from '@/widgets/fantasy-teams';
+import { RaceWeekHeaderContent } from '@/widgets/race-week-header-content';
+
+import { useFantasyTeamsByRaceWeek } from '../model/useFantasyTeamsByRaceWeek';
 
 type FantasyTeamsByRaceWeekProps = {
     leftUserId: TeamOwnerType;
@@ -23,10 +26,16 @@ export const FantasyTeamsByRaceWeek = ({
         raceWeeks,
     });
 
-    const { isOpen, toggle } = useAccordion({
-        defaultOpenItems: [data[0].raceWeekId],
+    const defaultOpenRaceWeekId = data[0]?.raceWeekId;
+
+    const { isOpen, open, toggle } = useAccordion<number>({
+        defaultOpenItems: defaultOpenRaceWeekId ? [defaultOpenRaceWeekId] : [],
         type: 'multiple',
     });
+
+    useEffect(() => {
+        defaultOpenRaceWeekId && open(defaultOpenRaceWeekId);
+    }, [defaultOpenRaceWeekId]);
 
     if (isLoading || !data) {
         return <FullPageLoader />;
@@ -35,20 +44,16 @@ export const FantasyTeamsByRaceWeek = ({
     return (
         <div className="w-full flex flex-col gap-4 overflow-auto">
             <div className="flex flex-col gap-1">
-                {data.map(({ raceWeekId, teamViews }) => {
+                {data.map(({ raceWeekId, teamViews, raceWeekInfo }) => {
                     return (
                         <AccordionItem
                             key={raceWeekId}
                             isOpen={isOpen(raceWeekId)}
                             onToggle={() => toggle(raceWeekId)}
                             header={
-                                <div className="flex items-center justify-between gap-3">
-                                    <div className="flex flex-col">
-                                        <span className="text-sm font-semibold">
-                                            Race week {raceWeekId}
-                                        </span>
-                                    </div>
-                                </div>
+                                <RaceWeekHeaderContent
+                                    meeting={raceWeekInfo!}
+                                />
                             }
                         >
                             <FantasyTeamsWidget

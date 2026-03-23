@@ -5,6 +5,7 @@ import {
     useFantasyTeamHistoryQuery,
 } from '@/entities/fantasy-team';
 import { usePlayersHistoryQuery } from '@/entities/player';
+import { useF1ScheduleQuery } from '@/entities/schedule';
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
 type UseFantasyTemsByRaceWeekParams = {
@@ -29,55 +30,69 @@ export const useFantasyTeamsByRaceWeek = ({
     });
 
     const playersHistory = usePlayersHistoryQuery({ raceWeeks });
+    const f1ScheduleQuery = useF1ScheduleQuery();
 
     const isLoading =
         leftTeamHistory.isLoading ||
         rightTeamHistory.isLoading ||
         playersHistory.isLoading ||
-        !rightTeamHistory.data ||
-        !leftTeamHistory.data ||
-        !playersHistory.data;
+        f1ScheduleQuery.isLoading;
 
-    const leftTeamData = useMemo(() => {
-        if (!leftTeamHistory.data || !playersHistory.data || isLoading) {
+    const hasRequiredData =
+        !!leftTeamHistory.data &&
+        !!rightTeamHistory.data &&
+        !!playersHistory.data &&
+        !!f1ScheduleQuery.data;
+
+    const teamViewsList = useMemo(() => {
+        if (!hasRequiredData) {
             return [];
         }
 
-        return mapFantasyTeamHistoryToView(
+        const leftTeamData = mapFantasyTeamHistoryToView(
             leftTeamHistory.data,
             playersHistory.data,
         );
-    }, [leftTeamHistory.data, playersHistory.data, isLoading]);
 
-    const rightTeamData = useMemo(() => {
-        if (!rightTeamHistory.data || !playersHistory.data || isLoading) {
-            return [];
-        }
+        const leftTeamMap = new Map(
+            leftTeamData.map((team) => [team.raceWeek, team]),
+        );
 
-        return mapFantasyTeamHistoryToView(
+        const rightTeamData = mapFantasyTeamHistoryToView(
             rightTeamHistory.data,
             playersHistory.data,
         );
-    }, [rightTeamHistory.data, playersHistory.data, isLoading]);
 
-    const teamViewsList = useMemo(() => {
+        const rightTeamMap = new Map(
+            rightTeamData.map((team) => [team.raceWeek, team]),
+        );
+
+        const scheduleMap = new Map(
+            f1ScheduleQuery.data?.map((race) => [race.meetingNumber, race]),
+        );
+
         return [...raceWeeks].reverse().map((raceWeekId) => {
-            const leftTeam = leftTeamData.find(
-                (team) => team.raceWeek === raceWeekId,
-            );
-            const rightTeam = rightTeamData.find(
-                (team) => team.raceWeek === raceWeekId,
-            );
+            const leftTeam = leftTeamMap.get(raceWeekId);
+            const rightTeam = rightTeamMap.get(raceWeekId);
+            const raceWeekInfo = scheduleMap.get(raceWeekId);
 
             return {
                 raceWeekId,
-                teamViews: [leftTeam?.playersView!, rightTeam?.playersView!],
+                teamViews: [leftTeam!.playersView, rightTeam!.playersView],
+                raceWeekInfo: raceWeekInfo!,
             };
         });
-    }, [leftTeamData, rightTeamData]);
+    }, [
+        raceWeeks,
+        f1ScheduleQuery.data,
+        rightTeamHistory.data,
+        leftTeamHistory.data,
+        playersHistory.data,
+        hasRequiredData,
+    ]);
 
     return {
         data: teamViewsList,
-        isLoading,
+        isLoading: isLoading || !hasRequiredData,
     };
 };
