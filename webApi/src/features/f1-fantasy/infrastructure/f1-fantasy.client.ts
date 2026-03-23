@@ -42,4 +42,10 @@ export class F1FantasyClient {
 
         return this.f1FantasyApiClient.getPrivate(url);
     }
+
+    async getSchedule(lang: string) {
+        const url = `${this.fantasyBaseUrl}/feeds/v2/schedule/raceday_${lang}.json`;
+
+        return this.f1FantasyApiClient.getPrivate(url);
+    }
 }

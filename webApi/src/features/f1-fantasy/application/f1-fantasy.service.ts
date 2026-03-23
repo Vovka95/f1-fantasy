@@ -31,4 +31,8 @@ export class F1FantasyService {
     async getMe(input: F1FantasyUserTeamInput) {
         return this.f1FantasyClient.getUserGameDays(input);
     }
+
+    async getSchedule(lang: string) {
+        return this.f1FantasyClient.getSchedule(lang);
+    }
 }

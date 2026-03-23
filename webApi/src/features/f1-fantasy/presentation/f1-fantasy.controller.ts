@@ -41,6 +41,13 @@ export class F1FantasyController {
         return this.f1FantasyService.getUserGameDays({ userId });
     }
 
+    @Get('schedule')
+    async getSchedule() {
+        const lang = 'en';
+
+        return this.f1FantasyService.getSchedule(lang);
+    }
+
     @Get('me')
     async getMe() {
         return this.f1FantasyService.getMe({
