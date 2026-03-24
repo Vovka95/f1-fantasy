@@ -8,7 +8,7 @@ type LeaderboardRowProps = {
     team: LeaderboardUserTeam;
     playersPreview: PlayerPreview[];
     isHighlighted?: boolean;
-    onClick: (userId: string) => void;
+    onClick: (team: LeaderboardUserTeam) => void;
 };
 
 export const LeaderboardRow = ({
@@ -28,7 +28,7 @@ export const LeaderboardRow = ({
                 transition
                 ${isHighlighted ? 'bg-muted' : 'hover:bg-muted/50'}
             `}
-            onClick={() => onClick(team.user_guid)}
+            onClick={() => onClick(team)}
         >
             <div className="flex items-center gap-2">
                 <span className="font-semibold">{team.cur_rank}</span>

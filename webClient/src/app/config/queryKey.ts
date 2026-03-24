@@ -6,8 +6,8 @@ export const qk = {
         me: (userId: string) => [...qk.f1.all, , 'me', userId] as const,
         playersList: (raceWeek: number) =>
             [...qk.f1.all, , 'players', raceWeek] as const,
-        fantasyTeam: (userId: string, raceWeek: number) =>
-            [...qk.f1.all, , 'fantasy-team', userId, raceWeek] as const,
+        fantasyTeam: (userId: string, raceWeek: number, teamNo: number) =>
+            [...qk.f1.all, , 'fantasy-team', userId, raceWeek, teamNo] as const,
         userGameDays: (userId: string) =>
             [...qk.f1.all, , 'user-game-days', userId] as const,
         f1Schedule: () => [...qk.f1.all, 'f1-schedule'] as const,

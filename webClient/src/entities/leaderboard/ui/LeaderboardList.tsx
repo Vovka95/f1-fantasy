@@ -7,7 +7,7 @@ type LeaderboardListProps = {
     teams: LeaderboardUserTeam[];
     playersPreview: PlayerPreview[];
     selectedUserId?: string;
-    onClick: (userId: string) => void;
+    onClick: (team: LeaderboardUserTeam) => void;
 };
 
 export const LeaderboardList = ({
@@ -23,7 +23,7 @@ export const LeaderboardList = ({
             <div className="flex flex-1 flex-col min-h-0 overflow-auto">
                 {teams.map((team) => (
                     <LeaderboardRow
-                        key={team.user_guid}
+                        key={`${team.user_name}-${team.team_name}-${team.user_guid}`}
                         team={team}
                         playersPreview={playersPreview}
                         isHighlighted={team.user_guid === selectedUserId}

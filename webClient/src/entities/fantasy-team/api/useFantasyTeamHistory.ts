@@ -9,11 +9,13 @@ import { getFantasyTeamQueryOptions } from './fantasy-team-query-options';
 type UseFantasyTeamHistoryQueryParams = {
     userId?: TeamOwnerType;
     raceWeeks?: number[];
+    teamNo?: number;
 };
 
 export const useFantasyTeamHistoryQuery = ({
     userId,
     raceWeeks,
+    teamNo = 1,
 }: UseFantasyTeamHistoryQueryParams) => {
     const safeRaceWeeks = raceWeeks ?? [];
 
@@ -21,11 +23,12 @@ export const useFantasyTeamHistoryQuery = ({
 
     const queries = useQueries({
         queries: safeRaceWeeks.map((raceWeek) => ({
-            ...getFantasyTeamQueryOptions(userId!, raceWeek),
+            ...getFantasyTeamQueryOptions(userId!, raceWeek, teamNo),
             enabled:
                 safeRaceWeeks.length > 0 &&
-                isEnabled &&
-                Number.isFinite(raceWeek),
+                !!userId &&
+                Number.isFinite(raceWeek) &&
+                Number.isFinite(teamNo),
         })),
     });
 

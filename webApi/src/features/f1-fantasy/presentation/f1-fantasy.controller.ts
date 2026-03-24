@@ -10,6 +10,7 @@ export class F1FantasyController {
         await this.f1FantasyService.getMe({
             raceWeek: 1,
             userId: 'd025a628-18c6-11f1-8584-91067885f997',
+            teamNo: 1,
         });
 
         return { ok: true };
@@ -29,10 +30,12 @@ export class F1FantasyController {
     async getFantasyTeam(
         @Query('userId') userId: string,
         @Query('raceWeek') raceWeek: number,
+        @Query('teamNo') teamNo: number,
     ) {
         return this.f1FantasyService.getFantasyTeam({
             userId,
             raceWeek,
+            teamNo,
         });
     }
 
@@ -58,6 +61,7 @@ export class F1FantasyController {
         return this.f1FantasyService.getMe({
             raceWeek: 2,
             userId: 'd025a628-18c6-11f1-8584-91067885f997',
+            teamNo: 1,
         });
     }
 }

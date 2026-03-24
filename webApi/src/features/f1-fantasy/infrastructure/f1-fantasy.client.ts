@@ -29,9 +29,9 @@ export class F1FantasyClient {
     }
 
     async getFantasyTeam(input: F1FantasyUserTeamInput) {
-        const { userId, raceWeek } = input;
+        const { userId, raceWeek, teamNo } = input;
 
-        const url = `${this.fantasyBaseUrl}/services/user/opponentteam/opponentgamedayplayerteamget/1/${userId}/1/${raceWeek}/1`;
+        const url = `${this.fantasyBaseUrl}/services/user/opponentteam/opponentgamedayplayerteamget/1/${userId}/${teamNo}/${raceWeek}/1`;
 
         return this.f1FantasyApiClient.getPrivate(url);
     }

@@ -8,6 +8,7 @@ import {
 import { useActiveRaceWeek } from '@/entities/game-days';
 import { LeaderboardList, useLeaderboardQuery } from '@/entities/leaderboard';
 import { usePlayersQuery } from '@/entities/player';
+import type { LeaderboardUserTeam } from '@/entities/leaderboard/api/leaderboard-response.type';
 
 import { FullPageLoader } from '@/shared/ui';
 import { cn } from '@/shared/lib/cn';
@@ -15,13 +16,15 @@ import { cn } from '@/shared/lib/cn';
 const leagueId = '6969703';
 
 export const LeaderboardPage = () => {
-    const [selectedUserId, setSelectedUserId] = useState<string>();
+    const [selectedUserTeam, setSelectedUserTeam] =
+        useState<LeaderboardUserTeam>();
     const { activeRaceWeekId } = useActiveRaceWeek();
     const leaderboardQuery = useLeaderboardQuery({ leagueId: leagueId });
 
     const playersQuery = usePlayersQuery({ raceWeek: activeRaceWeekId });
     const fantasyTeamQuery = useFantasyTeamQuery({
-        userId: selectedUserId,
+        userId: selectedUserTeam?.user_guid,
+        teamNo: selectedUserTeam?.team_no,
         raceWeek: activeRaceWeekId,
     });
 
@@ -37,8 +40,7 @@ export const LeaderboardPage = () => {
     }, [fantasyTeamQuery.data, playersQuery.data]);
 
     useEffect(() => {
-        leaderboardQuery.data &&
-            setSelectedUserId(leaderboardQuery.data[0].user_guid);
+        leaderboardQuery.data && setSelectedUserTeam(leaderboardQuery.data[0]);
     }, [leaderboardQuery.data]);
 
     if (
@@ -61,8 +63,10 @@ export const LeaderboardPage = () => {
                     <LeaderboardList
                         teams={leaderboardQuery.data}
                         playersPreview={playersQuery.data.preview}
-                        selectedUserId={selectedUserId}
-                        onClick={(userId) => setSelectedUserId(userId)}
+                        selectedUserId={selectedUserTeam?.user_guid}
+                        onClick={(selectedTeam) =>
+                            setSelectedUserTeam(selectedTeam)
+                        }
                     />
                 </div>
 
