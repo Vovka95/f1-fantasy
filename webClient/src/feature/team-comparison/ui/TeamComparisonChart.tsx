@@ -104,7 +104,7 @@ export const TeamComparisonChart = ({
                                 ? leftTeamName
                                 : rightTeamName,
                         ]}
-                        labelFormatter={(label) => `Race week ${label}`}
+                        labelFormatter={(label) => `Round ${label}`}
                     />
                     <Legend
                         formatter={(value) => {
