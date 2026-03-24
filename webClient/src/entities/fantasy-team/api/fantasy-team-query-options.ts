@@ -1,12 +1,10 @@
 import { mapFantasyTeam } from '../model/mappers';
 import { getFantasyTeam } from './fantasy-team.api';
 
-import type { TeamOwnerType } from '@/feature/team-owner-switch';
-
 import { qk } from '@/app/config/queryKey';
 
 export const getFantasyTeamQueryOptions = (
-    userId?: TeamOwnerType,
+    userId?: string,
     raceWeek?: number,
 ) => ({
     queryKey: qk.f1.fantasyTeam(userId!, raceWeek!),

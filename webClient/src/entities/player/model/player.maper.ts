@@ -5,12 +5,24 @@ import type {
 import type { Player, PlayerPreview } from './types/player.type';
 
 import {
+    getConstructorAvatarImageUrl,
     getConstructorImageRightUrl,
+    getDriverAvatarImageUrl,
     getDriverFrontImageUrl,
 } from './player.assets';
 import type { PlayersListView } from './types/players-list-view.type';
 
-export const mapPlayer = (asset: PlayerResponse): Player => {
+export const mapPlayerToTable = (asset: PlayerResponse): Player => {
+    const imageUrl =
+        asset.PositionName === 'DRIVER'
+            ? getDriverFrontImageUrl(asset)
+            : getConstructorImageRightUrl(asset);
+
+    const avatarImageUrl =
+        asset.PositionName === 'DRIVER'
+            ? getDriverAvatarImageUrl(asset)
+            : getConstructorAvatarImageUrl(asset);
+
     return {
         id: asset.PlayerId,
         displayName: asset.DisplayName,
@@ -21,6 +33,9 @@ export const mapPlayer = (asset: PlayerResponse): Player => {
         selectedPercent: Number(asset.SelectedPercentage),
         valueForMoney: asset.AdditionalStats.value_for_money,
         overtakingPts: asset.AdditionalStats.overtaking_pts,
+
+        imageUrl,
+        avatarImageUrl,
     };
 };
 
@@ -30,6 +45,11 @@ const mapPlayerToPreview = (asset: PlayerResponse): PlayerPreview => {
             ? getDriverFrontImageUrl(asset)
             : getConstructorImageRightUrl(asset);
 
+    const avatarImageUrl =
+        asset.PositionName === 'DRIVER'
+            ? getDriverAvatarImageUrl(asset)
+            : getConstructorAvatarImageUrl(asset);
+
     return {
         id: asset.PlayerId,
         name: asset.DisplayName,
@@ -37,6 +57,7 @@ const mapPlayerToPreview = (asset: PlayerResponse): PlayerPreview => {
         shortName: asset.DisplayName,
 
         imageUrl,
+        avatarImageUrl,
 
         teamName: asset.TeamName || asset.DisplayName,
         positionName: asset.PositionName as PlayerPositionNameType,
@@ -52,7 +73,7 @@ const mapPlayerToPreview = (asset: PlayerResponse): PlayerPreview => {
 
 export const mapPlayers = (assets: PlayerResponse[]): PlayersListView => {
     return {
-        table: assets.map(mapPlayer),
+        table: assets.map(mapPlayerToTable),
         preview: assets.map(mapPlayerToPreview),
     };
 };

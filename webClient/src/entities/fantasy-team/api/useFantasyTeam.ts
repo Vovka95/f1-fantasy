@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { TeamOwnerType } from '@/feature/team-owner-switch';
 import { getFantasyTeamQueryOptions } from './fantasy-team-query-options';
 
 type UseFantasyTeamQueryParams = {
-    userId?: TeamOwnerType;
+    userId?: string;
     raceWeek?: number;
 };
 

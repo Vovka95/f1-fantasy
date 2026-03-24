@@ -51,8 +51,13 @@ export class F1FantasyClient {
     }
 
     async getLeaderboard(leagueId: string) {
+        // Overall
         const url = `${this.fantasyBaseUrl}/feeds/leaderboard/privateleague/list_1_${leagueId}_0_1.json`;
+        // By race week
+        // const url = `${this.fantasyBaseUrl}/feeds/leaderboard/privateleague/list_2_${leagueId}_${raceWeek}_1.json`;
 
-        return this.f1FantasyApiClient.getPrivate(url);
+        const res = await this.f1FantasyApiClient.getPrivate(url);
+
+        return res;
     }
 }

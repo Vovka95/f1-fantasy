@@ -8,7 +8,7 @@ import {
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
-import type { Player } from '@/entities/player';
+import { PlayerAvatar, type Player } from '@/entities/player';
 
 type DriversListTableProps = {
     data: Player[];
@@ -27,11 +27,21 @@ const columns: ColumnDef<Player>[] = [
     {
         accessorKey: 'displayName',
         header: 'Name',
-        cell: ({ row }) => (
-            <div className="flex items-center gap-2">
-                <span>{row.original.displayName}</span>
-            </div>
-        ),
+        cell: ({ row }) => {
+            const player = row.original;
+
+            return (
+                <div className="flex items-center gap-3 min-w-0">
+                    <PlayerAvatar
+                        avatarImageUrl={player.avatarImageUrl}
+                        playerId={player.id}
+                        name={player.displayName}
+                    />
+
+                    <span className="truncate">{player.displayName}</span>
+                </div>
+            );
+        },
     },
     {
         accessorKey: 'teamName',

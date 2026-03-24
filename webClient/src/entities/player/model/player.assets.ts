@@ -36,3 +36,20 @@ export const getConstructorImageRightUrl = (asset: PlayerResponse) => {
 
     return `https://media.formula1.com/image/upload/c_scale,w_2000/c_lpad,h_900,w_2100/${bgColor}/v1772802140/common/f1/${year}/${teamSlug}/${year}${teamSlug}carright.png`;
 };
+
+export const getDriverAvatarImageUrl = (asset: PlayerResponse) => {
+    const year = 2026;
+    const teamSlug = normalizeString(asset.TeamName);
+    const driverSlug = normalizeString(asset.DriverReference);
+    const bgColor = getTeamBackgroundColor(teamSlug);
+
+    return `https://media.formula1.com/image/upload/ar_1:1,c_crop,g_north,w_1000/${bgColor}/v1772802140/common/f1/${year}/${teamSlug}/${driverSlug}/${year}${teamSlug}${driverSlug}front.png`;
+};
+
+export const getConstructorAvatarImageUrl = (asset: PlayerResponse) => {
+    const year = 2026;
+    const teamSlug = normalizeString(asset.DisplayName);
+    const bgColor = getTeamBackgroundColor(teamSlug);
+
+    return `https://media.formula1.com/image/upload/c_scale,h_300/${bgColor}/c_lpad,h_400,w_400/v1772802140/common/f1/${year}/${teamSlug}/${year}${teamSlug}logowhitefr.png`;
+};

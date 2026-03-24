@@ -14,6 +14,7 @@ export const useLeaderboardQuery = ({
     return useQuery({
         queryKey: qk.f1.leaderboard(leagueId!),
         queryFn: () => getLeaderboard(leagueId),
+        select: (data) => data.Value.leaderboard,
         retry: false,
         enabled: !!leagueId,
         staleTime: 60_000,

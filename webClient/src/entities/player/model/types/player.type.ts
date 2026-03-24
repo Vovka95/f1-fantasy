@@ -10,13 +10,17 @@ export type Player = {
     selectedPercent: number;
     valueForMoney: number;
     overtakingPts: number;
+
+    imageUrl: string;
+    avatarImageUrl: string;
 };
 
 export type PlayerPreview = {
     id: string;
     name: string;
     shortName: string;
-    imageUrl: string | null;
+    imageUrl: string;
+    avatarImageUrl: string;
     teamName: string;
     positionName: PlayerPositionNameType;
     value: number;
