@@ -18,27 +18,29 @@ export const StatisticsPage = () => {
     } = useStatisticsPage();
 
     return (
-        <div className="flex flex-col h-full gap-4 overflow-hidden">
-            <header className="flex gap-2 justify-between">
-                <RaceWeekSelect value={raceWeek!} onChange={setRaceWeek} />
+        <div className="flex w-full h-full justify-center">
+            <div className="flex flex-col w-full h-full max-w-400 min-h-0 overflow-hidden gap-4">
+                <header className="flex gap-2 justify-between">
+                    <RaceWeekSelect value={raceWeek!} onChange={setRaceWeek} />
 
-                <PlayersEntityTypeSwitch
-                    value={filterBy}
-                    onValueChange={setFilterBy}
-                />
-            </header>
+                    <PlayersEntityTypeSwitch
+                        value={filterBy}
+                        onValueChange={setFilterBy}
+                    />
+                </header>
 
-            <section className="flex-1 min-h-0">
-                {!isLoading && !isError && (
-                    <>
-                        {filterBy === 'DRIVER' ? (
-                            <DriversListTable data={players} />
-                        ) : (
-                            <ConstructorsListTable data={players} />
-                        )}
-                    </>
-                )}
-            </section>
+                <section className="flex-1 min-h-0">
+                    {!isLoading && !isError && (
+                        <>
+                            {filterBy === 'DRIVER' ? (
+                                <DriversListTable data={players} />
+                            ) : (
+                                <ConstructorsListTable data={players} />
+                            )}
+                        </>
+                    )}
+                </section>
+            </div>
         </div>
     );
 };
