@@ -1,5 +1,6 @@
 import {
     BadGatewayException,
+    HttpException,
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
@@ -23,16 +24,11 @@ export class F1FantasyApiClient {
         config?: Omit<AxiosRequestConfig, 'headers'> & {
             headers?: Record<string, string>;
         },
-    ): Promise<T> {
-        const cookieHeader = await this.f1SessionService.getCookieHeader();
-
-        return this.requestPrivate<T>(
-            'get',
-            url,
-            cookieHeader,
-            undefined,
+    ) {
+        return this.sendRequest<T>('get', url, {
+            isPrivate: true,
             config,
-        );
+        });
     }
 
     async getPublic<T>(
@@ -40,8 +36,11 @@ export class F1FantasyApiClient {
         config?: Omit<AxiosRequestConfig, 'headers'> & {
             headers?: Record<string, string>;
         },
-    ): Promise<T> {
-        return this.requestPublic<T>('get', url, undefined, config);
+    ) {
+        return this.sendRequest<T>('get', url, {
+            isPrivate: false,
+            config,
+        });
     }
 
     async postPrivate<T>(
@@ -50,10 +49,12 @@ export class F1FantasyApiClient {
         config?: Omit<AxiosRequestConfig, 'headers'> & {
             headers?: Record<string, string>;
         },
-    ): Promise<T> {
-        const cookieHeader = await this.f1SessionService.getCookieHeader();
-
-        return this.requestPrivate<T>('post', url, cookieHeader, body, config);
+    ) {
+        return this.sendRequest<T>('post', url, {
+            isPrivate: true,
+            body,
+            config,
+        });
     }
 
     async postPublic<T>(
@@ -62,61 +63,63 @@ export class F1FantasyApiClient {
         config?: Omit<AxiosRequestConfig, 'headers'> & {
             headers?: Record<string, string>;
         },
-    ): Promise<T> {
-        return this.requestPublic<T>('post', url, body, config);
+    ) {
+        return this.sendRequest<T>('post', url, {
+            isPrivate: false,
+            body,
+            config,
+        });
     }
 
-    private async requestPrivate<T>(
+    private async sendRequest<T>(
         method: Method,
         url: string,
-        cookieHeader: string,
-        body?: unknown,
-        config?: Omit<AxiosRequestConfig, 'headers'> & {
-            headers?: Record<string, string>;
+        options: {
+            isPrivate: boolean;
+            body?: unknown;
+            config?: Omit<AxiosRequestConfig, 'headers'> & {
+                headers?: Record<string, string>;
+            };
         },
     ): Promise<T> {
-        const headers: Record<string, string> = {
+        const baseHeaders: Record<string, string> = {
             Accept: 'application/json, text/plain, */*',
-            Referer: 'https://fantasy.formula1.com/en/leagues',
+            Referer: options.isPrivate
+                ? 'https://fantasy.formula1.com/en/leagues'
+                : 'https://fantasy.formula1.com/en',
             'User-Agent':
                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36',
-            Cookie: cookieHeader,
         };
 
-        if (config?.headers) {
-            Object.assign(headers, config.headers);
+        if (options.isPrivate) {
+            baseHeaders.Cookie = await this.f1SessionService.getCookieHeader();
         }
 
-        try {
-            const response =
-                method === 'get'
-                    ? await firstValueFrom(
-                          this.httpService.get<T>(url, {
-                              ...config,
-                              headers,
-                              validateStatus: () => true,
-                          }),
-                      )
-                    : await firstValueFrom(
-                          this.httpService.post<T>(url, body, {
-                              ...config,
-                              headers,
-                              validateStatus: () => true,
-                          }),
-                      );
+        if (options.config?.headers) {
+            Object.assign(baseHeaders, options.config.headers);
+        }
 
-            await this.f1SessionService.markValid();
+        const response =
+            method === 'get'
+                ? await firstValueFrom(
+                      this.httpService.get<T>(url, {
+                          ...options.config,
+                          headers: baseHeaders,
+                          validateStatus: () => true,
+                      }),
+                  )
+                : await firstValueFrom(
+                      this.httpService.post<T>(url, options.body, {
+                          ...options.config,
+                          headers: baseHeaders,
+                          validateStatus: () => true,
+                      }),
+                  );
 
-            return response.data;
-        } catch (error) {
-            const axiosError = error as AxiosError;
-
-            if (
-                axiosError.response?.status === 401 ||
-                axiosError.response?.status === 403
-            ) {
+        if (response.status === 401 || response.status === 403) {
+            if (options.isPrivate) {
                 await this.f1SessionService.markExpired(
-                    `F1 authorization failed with status ${axiosError.response.status}, on url request: ${url}`,
+                    `F1 authorization failed with status ${response.status}, on url request: ${url}`,
                 );
 
                 throw new UnauthorizedException(
@@ -124,63 +127,19 @@ export class F1FantasyApiClient {
                 );
             }
 
-            throw new BadGatewayException(F1_API_ERROR.F1_PRIVATE_FAILED);
-        }
-    }
-
-    private async requestPublic<T>(
-        method: Method,
-        url: string,
-        body?: unknown,
-        config?: Omit<AxiosRequestConfig, 'headers'> & {
-            headers?: Record<string, string>;
-        },
-    ): Promise<T> {
-        const headers: Record<string, string> = {
-            Accept: 'application/json, text/plain, */*',
-            Referer: 'https://fantasy.formula1.com/en',
-            'User-Agent':
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36',
-        };
-
-        if (config?.headers) {
-            Object.assign(headers, config.headers);
+            throw new UnauthorizedException(F1_API_ERROR.F1_PUBLIC_UNAUTORIZED);
         }
 
-        try {
-            const response =
-                method === 'get'
-                    ? await firstValueFrom(
-                          this.httpService.get<T>(url, {
-                              ...config,
-                              headers,
-                          }),
-                      )
-                    : await firstValueFrom(
-                          this.httpService.post<T>(url, body, {
-                              ...config,
-                              headers,
-                          }),
-                      );
-
-            return response.data;
-        } catch (error) {
-            const axiosError = error as AxiosError;
-
-            if (
-                axiosError.response?.status === 401 ||
-                axiosError.response?.status === 403
-            ) {
-                await this.f1SessionService.markExpired(
-                    `F1 authorization failed with status ${axiosError.response.status}`,
-                );
-
-                throw new UnauthorizedException(
-                    F1_API_ERROR.F1_PUBLIC_UNAUTORIZED,
-                );
-            }
-
-            throw new BadGatewayException(F1_API_ERROR.F1_PUBLIC_FAILED);
+        if (response.status >= 400) {
+            throw new BadGatewayException(
+                `F1 request failed with status ${response.status}, on url request: ${url}`,
+            );
         }
+
+        if (options.isPrivate) {
+            await this.f1SessionService.markValid();
+        }
+
+        return response.data;
     }
 }
