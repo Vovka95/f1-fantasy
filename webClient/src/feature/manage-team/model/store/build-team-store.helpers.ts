@@ -13,6 +13,7 @@ export const EMPTY_STATE: UserGeneratedTeamsState = {
     },
     teams: [],
     fantasyUserTeam: null,
+    fantasyUserBuildTeam: null,
 };
 
 export const getUserState = (
