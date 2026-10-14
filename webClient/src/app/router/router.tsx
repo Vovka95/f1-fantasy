@@ -8,6 +8,7 @@ import { ManageTeamPage } from '@/pages/manage-team';
 import { TeamPerformance } from '@/pages/team-performance';
 import { LeaderboardPage } from '@/pages/leaderboard';
 import { StatisticsPage } from '@/pages/statistics';
+import { PricePredictionPage } from '@/pages/price-prediction';
 
 export const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
             {
                 path: 'manage-team',
                 element: <ManageTeamPage />,
+            },
+            {
+                path: 'price-prediction',
+                element: <PricePredictionPage />,
             },
             {
                 path: 'team-performance',

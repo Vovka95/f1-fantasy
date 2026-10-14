@@ -5,8 +5,9 @@ import { cn } from '@/shared/lib/cn';
 const items = [
     { label: 'Home', to: '/home' },
     { label: 'Manage Team', to: '/manage-team' },
+    { label: 'Price Prediction', to: '/price-prediction' },
     { label: 'Team Performance', to: '/team-performance' },
-    { label: 'Leaderboard', to: 'leaderboard' },
+    { label: 'Leaderboard', to: '/leaderboard' },
     { label: 'Statistics', to: '/statistics' },
 ];
 
