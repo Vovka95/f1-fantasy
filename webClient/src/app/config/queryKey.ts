@@ -13,5 +13,7 @@ export const qk = {
         f1Schedule: () => [...qk.f1.all, 'f1-schedule'] as const,
         leaderboard: (leagueId: string) =>
             [...qk.f1.all, 'f1-leaderboard', leagueId] as const,
+        playerStats: (playerId: string) =>
+            [...qk.f1.all, 'f1-player-stats', playerId] as const,
     },
 };
