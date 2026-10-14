@@ -5,7 +5,10 @@ import {
     mapFantasyTeamToView,
     useFantasyTeamQuery,
 } from '@/entities/fantasy-team';
-import { useActiveRaceWeek } from '@/entities/game-days';
+import {
+    useActiveRaceWeek,
+    useLastCompletedRaceWeek,
+} from '@/entities/game-days';
 import { LeaderboardList, useLeaderboardQuery } from '@/entities/leaderboard';
 import { usePlayersQuery } from '@/entities/player';
 import type { LeaderboardUserTeam } from '@/entities/leaderboard/api/leaderboard-response.type';
@@ -18,6 +21,7 @@ const leagueId = '6969703';
 export const LeaderboardPage = () => {
     const [selectedUserTeam, setSelectedUserTeam] =
         useState<LeaderboardUserTeam>();
+    const { lastCompletedRaceWeekId } = useLastCompletedRaceWeek();
     const { activeRaceWeekId } = useActiveRaceWeek();
     const leaderboardQuery = useLeaderboardQuery({ leagueId: leagueId });
 
@@ -25,7 +29,7 @@ export const LeaderboardPage = () => {
     const fantasyTeamQuery = useFantasyTeamQuery({
         userId: selectedUserTeam?.user_guid,
         teamNo: selectedUserTeam?.team_no,
-        raceWeek: activeRaceWeekId,
+        raceWeek: lastCompletedRaceWeekId,
     });
 
     const selectedFantasyTeam = useMemo(() => {

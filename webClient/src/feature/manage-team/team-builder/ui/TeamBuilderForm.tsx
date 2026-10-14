@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 
 import { type PlayerPreview } from '@/entities/player';
-import { type FantasyUserTeam } from '@/entities/fantasy-team';
+import {
+    calculateFantasyTeamBudget,
+    type FantasyUserTeam,
+} from '@/entities/fantasy-team';
 import type { TeamOwnerType } from '@/feature/team-owner-switch';
 
 import { TeamBuilderAction } from './TeamBuilderActions';
@@ -29,7 +32,10 @@ export const TeamBuilderForm = ({
         (state) => state.setFantasyUserTeam,
     );
 
-    const initialBudget = fantasyUserTeam.team_info.maxTeambal;
+    const initialBudget = calculateFantasyTeamBudget(
+        fantasyUserTeam,
+        playersPreview,
+    );
 
     useEffect(() => {
         if (!initialBudget) return;

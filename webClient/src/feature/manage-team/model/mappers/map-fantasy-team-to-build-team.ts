@@ -1,5 +1,8 @@
 import type { PlayerPreview } from '@/entities/player';
-import type { FantasyUserTeam } from '@/entities/fantasy-team';
+import {
+    calculateFantasyTeamBudget,
+    type FantasyUserTeam,
+} from '@/entities/fantasy-team';
 
 import type { BuildTeamViewModel } from '../types';
 
@@ -52,6 +55,8 @@ export const mapFantasyTeamToView = ({
 
     const pointsWithAdditionalTransfers = calculatedPoints - penalty;
 
+    const budget = calculateFantasyTeamBudget(fantasyTeam, playersPreview);
+
     return {
         id: `${fantasyTeam.socialId}`,
         players: {
@@ -62,7 +67,7 @@ export const mapFantasyTeamToView = ({
             overallPoints: fantasyTeam.ovpoints,
             calculatedPoints,
             remainingBudget: fantasyTeam.team_info.teamBal,
-            budget: fantasyTeam.team_info.maxTeambal,
+            budget: budget,
             transfersCount,
             extraTransfers,
             pointsWithAdditionalTransfers,

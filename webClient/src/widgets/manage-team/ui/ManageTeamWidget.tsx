@@ -12,17 +12,19 @@ import { Divider, FullPageLoader } from '@/shared/ui';
 
 type ManageTeamWidgetProps = {
     userId: TeamOwnerType;
-    raceWeek: number;
+    activeRaceWeekId: number;
+    lastCompletedRaceWeekId: number;
 };
 
 export const ManageTeamWidget = ({
     userId,
-    raceWeek,
+    activeRaceWeekId,
+    lastCompletedRaceWeekId,
 }: ManageTeamWidgetProps) => {
-    const playersQuery = usePlayersQuery({ raceWeek });
+    const playersQuery = usePlayersQuery({ raceWeek: activeRaceWeekId });
 
     const fantasyTeamQuery = useFantasyTeamQuery({
-        raceWeek,
+        raceWeek: lastCompletedRaceWeekId,
         userId,
     });
 

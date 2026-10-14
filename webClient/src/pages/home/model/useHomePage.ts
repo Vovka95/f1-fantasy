@@ -9,12 +9,18 @@ import {
     useFantasyTeamQuery,
 } from '@/entities/fantasy-team';
 import { usePlayersQuery } from '@/entities/player';
-import { useActiveRaceWeek } from '@/entities/game-days';
+import {
+    useActiveRaceWeek,
+    useLastCompletedRaceWeek,
+} from '@/entities/game-days';
 import { khrystynaId, volodymyrId } from '@/feature/team-owner-switch';
 
 export const useHomePage = () => {
     const { activeRaceWeekId, isLoading: isRaceWeekLoading } =
         useActiveRaceWeek();
+
+    const { lastCompletedRaceWeekId, isLoading: isLastCompletedRaceWeek } =
+        useLastCompletedRaceWeek();
 
     const f1ScheduleQuery = useF1ScheduleQuery();
 
@@ -24,17 +30,19 @@ export const useHomePage = () => {
 
     const firstTeamQuery = useFantasyTeamQuery({
         userId: volodymyrId,
-        raceWeek: activeRaceWeekId,
+        raceWeek: lastCompletedRaceWeekId,
     });
 
     const secondTeamQuery = useFantasyTeamQuery({
         userId: khrystynaId,
-        raceWeek: activeRaceWeekId,
+        raceWeek: lastCompletedRaceWeekId,
     });
 
     const isLoading =
         isRaceWeekLoading ||
         !activeRaceWeekId ||
+        isLastCompletedRaceWeek ||
+        !lastCompletedRaceWeekId ||
         playersQuery.isLoading ||
         firstTeamQuery.isLoading ||
         secondTeamQuery.isLoading ||
@@ -42,6 +50,7 @@ export const useHomePage = () => {
 
     const hasData =
         activeRaceWeekId &&
+        lastCompletedRaceWeekId &&
         playersQuery.data &&
         firstTeamQuery.data &&
         secondTeamQuery.data;
@@ -79,6 +88,7 @@ export const useHomePage = () => {
         isLoading: isLoading && !hasData && !f1ScheduleHasData,
         teamViews,
         activeRaceWeekId,
+        lastCompletedRaceWeekId,
         raceWeekMeeting: activeRaceWeekMeetingInfo,
     };
 };

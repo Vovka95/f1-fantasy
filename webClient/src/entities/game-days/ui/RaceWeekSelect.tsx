@@ -12,7 +12,8 @@ export const RaceWeekSelect = ({ value, onChange }: RaveWeekSelect) => {
     const gameDaysQuery = useGameDaysQuery({ userId: volodymyrId });
 
     const raceWeekSeries = gameDaysQuery.data?.raceWeeks.raceWeekSeries;
-    const activeRaceWeekId = gameDaysQuery.data?.raceWeeks.activeRaceWeekId;
+    const lastCompletedRaceWeekId =
+        gameDaysQuery.data?.raceWeeks.lastCompletedRaceWeekId;
 
     const raceWeekOptions = useMemo(() => {
         return raceWeekSeries?.map((rw) => ({
@@ -22,8 +23,8 @@ export const RaceWeekSelect = ({ value, onChange }: RaveWeekSelect) => {
     }, [raceWeekSeries]);
 
     useEffect(() => {
-        activeRaceWeekId && onChange(activeRaceWeekId);
-    }, [activeRaceWeekId]);
+        lastCompletedRaceWeekId && onChange(lastCompletedRaceWeekId);
+    }, [lastCompletedRaceWeekId]);
 
     const isLoading = gameDaysQuery.isLoading || !raceWeekOptions;
 

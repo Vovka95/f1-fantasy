@@ -310,6 +310,7 @@ export const mergeFixtureIntoMeeting = (
 
     return {
         ...meeting,
+        meetingNumber: fixture.MeetingNumber,
         countryId: meeting.countryId ?? parseNumber(fixture.CountryId),
         countryName: meeting.countryName ?? fixture.CountryName,
         flagImageUrl:

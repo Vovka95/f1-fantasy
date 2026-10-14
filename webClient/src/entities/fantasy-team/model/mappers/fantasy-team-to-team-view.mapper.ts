@@ -12,7 +12,7 @@ export const mapFantasyTeamToView = (
     playersPreview: PlayerPreview[],
 ): FantasyTeamViewModel => {
     const players = mapFantasyTeamLineupView(fantasyTeam, playersPreview);
-    const summary = mapFantasyTeamSummaryView(fantasyTeam);
+    const summary = mapFantasyTeamSummaryView(fantasyTeam, playersPreview);
 
     return {
         id: String(fantasyTeam.socialId),

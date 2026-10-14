@@ -5,7 +5,10 @@ import {
     volodymyrId,
     type TeamOwnerType,
 } from '@/feature/team-owner-switch';
-import { useActiveRaceWeek } from '@/entities/game-days';
+import {
+    useActiveRaceWeek,
+    useLastCompletedRaceWeek,
+} from '@/entities/game-days';
 
 import { ManageTeamWidget } from '@/widgets/manage-team';
 
@@ -13,9 +16,10 @@ import { FullPageLoader } from '@/shared/ui';
 
 export const ManageTeamPage = () => {
     const [userId, setUserId] = useState<TeamOwnerType>(volodymyrId);
-    const { activeRaceWeekId, isLoading } = useActiveRaceWeek();
+    const { lastCompletedRaceWeekId } = useLastCompletedRaceWeek();
+    const { activeRaceWeekId } = useActiveRaceWeek();
 
-    if (isLoading || !activeRaceWeekId) {
+    if (!activeRaceWeekId || !lastCompletedRaceWeekId) {
         return <FullPageLoader />;
     }
 
@@ -29,7 +33,8 @@ export const ManageTeamPage = () => {
                 <section className="flex-1 min-h-0">
                     <ManageTeamWidget
                         userId={userId}
-                        raceWeek={activeRaceWeekId}
+                        lastCompletedRaceWeekId={lastCompletedRaceWeekId}
+                        activeRaceWeekId={activeRaceWeekId}
                     />
                 </section>
             </div>

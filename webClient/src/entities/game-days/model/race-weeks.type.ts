@@ -7,5 +7,6 @@ export type RaceWeekDetailsType = {
 
 export type RaceWeeksType = {
     activeRaceWeekId: number;
+    lastCompletedRaceWeekId: number;
     raceWeekSeries: RaceWeekDetailsType[];
 };
